@@ -1,0 +1,99 @@
+import React, { useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+
+// Components
+import Header from './components/layout/Header';
+import Footer from './components/layout/Footer';
+import ScrollToTop from './components/common/ScrollToTop';
+
+// Pages
+import Home from './pages/Home';
+import Services from './pages/Services';
+import Pricing from './pages/Pricing';
+import CaseStudies from './pages/CaseStudies';
+import About from './pages/About';
+import Contact from './pages/Contact';
+import Blog from './pages/Blog';
+import BlogPost from './pages/BlogPost';
+import AdminDashboard from './pages/admin/AdminDashboard';
+import BlogManager from './pages/admin/BlogManager';
+import SEOManager from './pages/admin/SEOManager';
+import LeadManager from './pages/admin/LeadManager';
+
+// Service Pages
+import SEOCalgary from './pages/services/SEOCalgary';
+import GoogleAdsCalgary from './pages/services/GoogleAdsCalgary';
+import ContentMarketingCalgary from './pages/services/ContentMarketingCalgary';
+import FacebookAdsCalgary from './pages/services/FacebookAdsCalgary';
+import SocialMediaManagementCalgary from './pages/services/SocialMediaManagementCalgary';
+import WebDesignCalgary from './pages/services/WebDesignCalgary';
+import ReputationManagementCalgary from './pages/services/ReputationManagementCalgary';
+
+// Contexts
+import { LeadProvider } from './contexts/LeadContext';
+import { BlogProvider } from './contexts/BlogContext';
+import { SEOProvider } from './contexts/SEOContext';
+
+function App() {
+  useEffect(() => {
+    AOS.init({
+      duration: 800,
+      once: true,
+      offset: 100,
+    });
+  }, []);
+
+  return (
+    <SEOProvider>
+      <BlogProvider>
+        <LeadProvider>
+          <Router>
+            <div className="min-h-screen bg-white">
+              <ScrollToTop />
+              <Header />
+              <main>
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/services" element={<Services />} />
+                  <Route path="/services/seo-calgary" element={<SEOCalgary />} />
+                  <Route path="/services/google-ads-calgary" element={<GoogleAdsCalgary />} />
+                  <Route path="/services/content-marketing-calgary" element={<ContentMarketingCalgary />} />
+                  <Route path="/services/facebook-ads-calgary" element={<FacebookAdsCalgary />} />
+                  <Route path="/services/social-media-management-calgary" element={<SocialMediaManagementCalgary />} />
+                  <Route path="/services/web-design-calgary" element={<WebDesignCalgary />} />
+                  <Route path="/services/reputation-management-calgary" element={<ReputationManagementCalgary />} />
+                  <Route path="/pricing" element={<Pricing />} />
+                  <Route path="/case-studies" element={<CaseStudies />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/contact" element={<Contact />} />
+                  <Route path="/blog" element={<Blog />} />
+                  <Route path="/blog/:slug" element={<BlogPost />} />
+                  <Route path="/admin" element={<AdminDashboard />} />
+                  <Route path="/admin/blog" element={<BlogManager />} />
+                  <Route path="/admin/seo" element={<SEOManager />} />
+                  <Route path="/admin/leads" element={<LeadManager />} />
+                </Routes>
+              </main>
+              <Footer />
+              <Toaster
+                position="top-right"
+                toastOptions={{
+                  duration: 4000,
+                  style: {
+                    background: '#363636',
+                    color: '#fff',
+                  },
+                }}
+              />
+            </div>
+          </Router>
+        </LeadProvider>
+      </BlogProvider>
+    </SEOProvider>
+  );
+}
+
+export default App;

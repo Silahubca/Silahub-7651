@@ -1,0 +1,10 @@
+# Netlify/Vercel redirects for SPA - This handles production deployment
+/*    /index.html   200
+
+# SEO redirects for old hash URLs (if any exist)
+/#/services    /services    301
+/#/about       /about       301
+/#/contact     /contact     301
+/#/pricing     /pricing     301
+/#/blog        /blog        301
+/#/case-studies /case-studies 301

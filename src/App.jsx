@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { HashRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -51,9 +51,9 @@ function App() {
     });
     
     // Debug logging for cPanel
-    console.log('App component loaded');
+    console.log('App component loaded successfully');
     console.log('Current URL:', window.location.href);
-    console.log('Base URL:', document.baseURI);
+    console.log('Router type: BrowserRouter (no hash)');
   }, []);
 
   return (

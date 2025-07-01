@@ -14,43 +14,51 @@ export default defineConfig({
     sourcemap: false,
     rollupOptions: {
       output: {
+        // Use simple file names for cPanel compatibility
+        entryFileNames: 'assets/main-[hash].js',
+        chunkFileNames: 'assets/chunk-[hash].js',
+        assetFileNames: (assetInfo) => {
+          const info = assetInfo.name.split('.');
+          const extType = info[info.length - 1];
+          if (/png|jpe?g|svg|gif|tiff|bmp|ico/i.test(extType)) {
+            return `assets/images/[name]-[hash].[ext]`;
+          }
+          if (/css/i.test(extType)) {
+            return `assets/css/[name]-[hash].[ext]`;
+          }
+          return `assets/[name]-[hash].[ext]`;
+        },
         manualChunks: {
           vendor: ['react', 'react-dom'],
           router: ['react-router-dom'],
           icons: ['react-icons'],
           animation: ['framer-motion']
-        },
-        // Ensure consistent file names for cPanel
-        entryFileNames: 'assets/[name]-[hash].js',
-        chunkFileNames: 'assets/[name]-[hash].js',
-        assetFileNames: 'assets/[name]-[hash].[ext]'
+        }
       }
     },
-    // Use esbuild for better compatibility
-    minify: 'esbuild',
-    target: 'es2018', // Better browser compatibility for cPanel
+    // Use terser for better compatibility
+    minify: 'terser',
+    target: 'es2015',
     
-    // Ensure relative paths work on cPanel
-    assetsInlineLimit: 4096,
+    // Ensure all assets are properly bundled
+    assetsInlineLimit: 0,
     
     // Generate manifest for debugging
-    manifest: true
+    manifest: false
   },
   
-  // Important: Set base to relative path for cPanel
-  base: './',
+  // Use absolute base for cPanel
+  base: '/',
   
   // Development server
   server: {
     port: 5173,
-    host: true,
-    historyApiFallback: true
+    host: true
   },
   
   // Preview server
   preview: {
     port: 4173,
-    host: true,
-    historyApiFallback: true
+    host: true
   }
 })

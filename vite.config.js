@@ -19,15 +19,26 @@ export default defineConfig({
           router: ['react-router-dom'],
           icons: ['react-icons'],
           animation: ['framer-motion']
-        }
+        },
+        // Ensure consistent file names for cPanel
+        entryFileNames: 'assets/[name]-[hash].js',
+        chunkFileNames: 'assets/[name]-[hash].js',
+        assetFileNames: 'assets/[name]-[hash].[ext]'
       }
     },
-    // Simplified minification - let Vite handle it automatically
-    minify: 'esbuild', // Use esbuild instead of terser for faster builds
-    target: 'esnext'
+    // Use esbuild for better compatibility
+    minify: 'esbuild',
+    target: 'es2018', // Better browser compatibility for cPanel
+    
+    // Ensure relative paths work on cPanel
+    assetsInlineLimit: 4096,
+    
+    // Generate manifest for debugging
+    manifest: true
   },
-  // Base URL for assets
-  base: '/',
+  
+  // Important: Set base to relative path for cPanel
+  base: './',
   
   // Development server
   server: {

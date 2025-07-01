@@ -1,6 +1,6 @@
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
-import path from 'path';
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import path from 'path'
 
 export default defineConfig({
   plugins: [react()],
@@ -11,19 +11,35 @@ export default defineConfig({
   },
   build: {
     outDir: 'dist',
-    sourcemap: true
+    sourcemap: false,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom'],
+          router: ['react-router-dom'],
+          icons: ['react-icons'],
+          animation: ['framer-motion']
+        }
+      }
+    },
+    // Simplified minification - let Vite handle it automatically
+    minify: 'esbuild', // Use esbuild instead of terser for faster builds
+    target: 'esnext'
   },
-  // Fix for client-side routing in development
+  // Base URL for assets
+  base: '/',
+  
+  // Development server
   server: {
     port: 5173,
     host: true,
     historyApiFallback: true
   },
-  // Fix for client-side routing in preview
+  
+  // Preview server
   preview: {
     port: 4173,
     host: true,
-    // This is the key fix for BrowserRouter in preview
     historyApiFallback: true
   }
-});
+})

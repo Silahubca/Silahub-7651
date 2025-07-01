@@ -11,7 +11,7 @@ export default defineConfig({
   },
   build: {
     outDir: 'dist',
-    sourcemap: false, // Disable sourcemaps for production
+    sourcemap: false,
     rollupOptions: {
       output: {
         manualChunks: {
@@ -22,18 +22,19 @@ export default defineConfig({
         }
       }
     },
-    // Optimize for production
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: true,
-        drop_debugger: true
-      }
-    }
+    // Use esbuild for faster, more reliable builds
+    minify: 'esbuild',
+    target: 'esnext',
+    // Optimize chunk size
+    chunkSizeWarningLimit: 1600
   },
+  // Base URL for assets
+  base: '/',
+  
   // Production server settings
   preview: {
     port: 4173,
-    host: true
+    host: true,
+    historyApiFallback: true
   }
 })

@@ -18,15 +18,15 @@ const LiveResultsFeed = () => {
       location: "Kensington"
     },
     {
-      client: "Elite HVAC Services",
+      client: "Elite HVAC Services", 
       achievement: "Generated $15K in new revenue",
       metric: "450% ROAS",
-      timeAgo: "4 hours ago", 
+      timeAgo: "4 hours ago",
       location: "Beltline"
     },
     {
       client: "ProClean Calgary",
-      achievement: "Booked solid for next 3 weeks",
+      achievement: "Booked solid for next 3 weeks", 
       metric: "+250% bookings",
       timeAgo: "6 hours ago",
       location: "Mission"
@@ -34,7 +34,7 @@ const LiveResultsFeed = () => {
     {
       client: "Calgary Roofing Co.",
       achievement: "Won $50K commercial contract",
-      metric: "From Google Ads",
+      metric: "From Google Ads", 
       timeAgo: "8 hours ago",
       location: "Downtown"
     }
@@ -50,7 +50,7 @@ const LiveResultsFeed = () => {
     }, 4000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [liveResults.length]);
 
   const result = liveResults[currentResult];
 

@@ -34,12 +34,12 @@ const BeforeAfterShowcase = () => {
     },
     {
       company: "Elite HVAC Calgary",
-      industry: "HVAC", 
+      industry: "HVAC",
       timeframe: "8 months",
       before: {
         monthlyLeads: 12,
         avgJobValue: 850,
-        googleRanking: "Page 2",
+        googleRanking: "Page 2", 
         monthlyRevenue: 28000,
         webTraffic: 350
       },
@@ -58,7 +58,7 @@ const BeforeAfterShowcase = () => {
     {
       company: "ProClean Services",
       industry: "Cleaning",
-      timeframe: "4 months", 
+      timeframe: "4 months",
       before: {
         monthlyLeads: 15,
         avgJobValue: 180,
@@ -247,7 +247,7 @@ const BeforeAfterShowcase = () => {
           <div className="bg-gradient-to-r from-silahub-primary to-primary-600 p-6 text-center">
             <p className="mb-4 text-primary-100">Ready for your own transformation?</p>
             <a
-              href="/contact"
+              href="#/contact"
               className="bg-white text-silahub-primary px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors inline-flex items-center space-x-2"
             >
               <span>Get Your Free Audit</span>

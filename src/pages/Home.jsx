@@ -3,6 +3,7 @@ import HeroSection from '../components/home/HeroSection';
 import ServicesOverview from '../components/home/ServicesOverview';
 import InteractiveROICalculator from '../components/home/InteractiveROICalculator';
 import StatsSection from '../components/home/StatsSection';
+import BeforeAfterShowcase from '../components/home/BeforeAfterShowcase';
 import VideoTestimonials from '../components/home/VideoTestimonials';
 import LocalPresenceMap from '../components/home/LocalPresenceMap';
 import CaseStudiesPreview from '../components/home/CaseStudiesPreview';
@@ -10,6 +11,7 @@ import TestimonialsSection from '../components/home/TestimonialsSection';
 import CTASection from '../components/home/CTASection';
 import LeadMagnetModal from '../components/leads/LeadMagnetModal';
 import LiveChatWidget from '../components/home/LiveChatWidget';
+import LiveResultsFeed from '../components/home/LiveResultsFeed';
 
 const Home = () => {
   // Set page title
@@ -27,6 +29,7 @@ const Home = () => {
       <InteractiveROICalculator />
       <ServicesOverview />
       <StatsSection />
+      <BeforeAfterShowcase />
       <VideoTestimonials />
       <LocalPresenceMap />
       <CaseStudiesPreview />
@@ -34,6 +37,7 @@ const Home = () => {
       <CTASection />
       <LeadMagnetModal />
       <LiveChatWidget />
+      <LiveResultsFeed />
     </>
   );
 };

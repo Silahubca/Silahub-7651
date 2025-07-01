@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
 
 // Components
 import Header from './components/layout/Header';
@@ -43,17 +41,12 @@ import { SEOProvider } from './contexts/SEOContext';
 
 function App() {
   useEffect(() => {
-    // Initialize AOS
-    AOS.init({
-      duration: 800,
-      once: true,
-      offset: 100,
-    });
+    // Initialize any necessary app-level functionality
+    console.log('Silahub Technologies App loaded successfully');
     
-    // Debug logging for cPanel
-    console.log('App component loaded successfully');
-    console.log('Current URL:', window.location.href);
-    console.log('Router type: BrowserRouter (no hash)');
+    // Set initial theme/design preferences
+    document.documentElement.style.setProperty('--primary-color', '#4B154B');
+    document.documentElement.style.setProperty('--secondary-color', '#EFCECF');
   }, []);
 
   return (
@@ -64,10 +57,20 @@ function App() {
             <div className="min-h-screen bg-white">
               <ScrollToTop />
               <Header />
-              <main>
+              <main className="relative">
                 <Routes>
+                  {/* Main Pages */}
                   <Route path="/" element={<Home />} />
                   <Route path="/services" element={<Services />} />
+                  <Route path="/pricing" element={<Pricing />} />
+                  <Route path="/case-studies" element={<CaseStudies />} />
+                  <Route path="/portfolio" element={<Portfolio />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/contact" element={<Contact />} />
+                  <Route path="/blog" element={<Blog />} />
+                  <Route path="/blog/:slug" element={<BlogPost />} />
+                  
+                  {/* Service Pages */}
                   <Route path="/services/seo-calgary" element={<SEOCalgary />} />
                   <Route path="/services/google-ads-calgary" element={<GoogleAdsCalgary />} />
                   <Route path="/services/content-marketing-calgary" element={<ContentMarketingCalgary />} />
@@ -78,13 +81,8 @@ function App() {
                   <Route path="/services/branding-service" element={<BrandingService />} />
                   <Route path="/services/google-maps-seo" element={<GoogleMapsSEO />} />
                   <Route path="/services/google-local-service-ads" element={<GoogleLocalServiceAds />} />
-                  <Route path="/pricing" element={<Pricing />} />
-                  <Route path="/case-studies" element={<CaseStudies />} />
-                  <Route path="/portfolio" element={<Portfolio />} />
-                  <Route path="/about" element={<About />} />
-                  <Route path="/contact" element={<Contact />} />
-                  <Route path="/blog" element={<Blog />} />
-                  <Route path="/blog/:slug" element={<BlogPost />} />
+                  
+                  {/* Admin Pages */}
                   <Route path="/admin" element={<AdminDashboard />} />
                   <Route path="/admin/blog" element={<BlogManager />} />
                   <Route path="/admin/seo" element={<SEOManager />} />
@@ -92,13 +90,24 @@ function App() {
                 </Routes>
               </main>
               <Footer />
-              <Toaster
+              
+              {/* Toast Notifications */}
+              <Toaster 
                 position="top-right"
                 toastOptions={{
                   duration: 4000,
                   style: {
-                    background: '#363636',
+                    background: '#4B154B',
                     color: '#fff',
+                    borderRadius: '12px',
+                    padding: '16px',
+                    fontWeight: '500',
+                  },
+                  success: {
+                    iconTheme: {
+                      primary: '#EFCECF',
+                      secondary: '#4B154B',
+                    },
                   },
                 }}
               />

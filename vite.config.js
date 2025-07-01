@@ -14,7 +14,7 @@ export default defineConfig({
     sourcemap: false,
     rollupOptions: {
       output: {
-        // Use simple file names for cPanel compatibility
+        // Use simple file names for better compatibility
         entryFileNames: 'assets/main-[hash].js',
         chunkFileNames: 'assets/chunk-[hash].js',
         assetFileNames: (assetInfo) => {
@@ -36,26 +36,22 @@ export default defineConfig({
         }
       }
     },
-    // Use terser for better compatibility
+    // Use terser for better compatibility and smaller bundles
     minify: 'terser',
     target: 'es2015',
-    
     // Ensure all assets are properly bundled
-    assetsInlineLimit: 0,
-    
-    // Generate manifest for debugging
-    manifest: false
+    assetsInlineLimit: 4096,
+    // Optimize chunk size
+    chunkSizeWarningLimit: 1000
   },
-  
-  // Use absolute base for cPanel
-  base: '/',
-  
+  // Use hash router base for better compatibility
+  base: './',
   // Development server
   server: {
     port: 5173,
-    host: true
+    host: true,
+    open: true
   },
-  
   // Preview server
   preview: {
     port: 4173,

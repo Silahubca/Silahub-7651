@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import * as FiIcons from 'react-icons/fi';
 import SafeIcon from '../../common/SafeIcon';
 
-const { FiPhone, FiMail, FiMapPin, FiFacebook, FiTwitter, FiLinkedin, FiInstagram } = FiIcons;
+const { FiPhone, FiMail, FiMapPin, FiFacebook, FiTwitter, FiLinkedin, FiInstagram, FiYoutube } = FiIcons;
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -25,6 +25,34 @@ const Footer = () => {
     { name: 'Case Studies', href: '/case-studies' },
     { name: 'Blog', href: '/blog' },
     { name: 'Contact', href: '/contact' },
+  ];
+
+  const socialLinks = [
+    {
+      name: 'Facebook',
+      icon: FiFacebook,
+      url: 'https://www.facebook.com/silahubtechnologies'
+    },
+    {
+      name: 'Instagram',
+      icon: FiInstagram,
+      url: 'https://www.instagram.com/silahubtechnologies'
+    },
+    {
+      name: 'LinkedIn',
+      icon: FiLinkedin,
+      url: 'https://www.linkedin.com/company/silahubtechnologies'
+    },
+    {
+      name: 'YouTube',
+      icon: FiYoutube,
+      url: 'https://www.youtube.com/@silahubtechnologies'
+    },
+    {
+      name: 'X (Twitter)',
+      icon: FiTwitter,
+      url: 'https://x.com/silahubtech'
+    }
   ];
 
   // Handle link clicks to ensure proper scrolling
@@ -49,21 +77,35 @@ const Footer = () => {
               />
             </div>
             <p className="text-gray-300 leading-relaxed">
-              Calgary's premier digital marketing agency specializing in home service businesses and contractors. 
-              We help you grow your business with proven digital marketing strategies.
+              Calgary's premier digital marketing agency specializing in home service businesses and contractors. We help you grow your business with proven digital marketing strategies.
             </p>
-            <div className="flex space-x-4">
-              <a href="#" className="text-gray-400 hover:text-silahub-secondary transition-colors">
-                <SafeIcon icon={FiFacebook} className="w-5 h-5" />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-silahub-secondary transition-colors">
-                <SafeIcon icon={FiTwitter} className="w-5 h-5" />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-silahub-secondary transition-colors">
-                <SafeIcon icon={FiLinkedin} className="w-5 h-5" />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-silahub-secondary transition-colors">
-                <SafeIcon icon={FiInstagram} className="w-5 h-5" />
+            <div className="flex space-x-3">
+              {socialLinks.map((social) => (
+                <a
+                  key={social.name}
+                  href={social.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-400 hover:text-silahub-secondary transition-colors p-2 bg-gray-800 rounded-lg hover:bg-gray-700"
+                  aria-label={`Follow us on ${social.name}`}
+                >
+                  <SafeIcon icon={social.icon} className="w-5 h-5" />
+                </a>
+              ))}
+            </div>
+            {/* TikTok Link (using external icon since react-icons doesn't have TikTok) */}
+            <div className="mt-2">
+              <a
+                href="https://www.tiktok.com/@silahub.technolog"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:text-silahub-secondary transition-colors text-sm flex items-center space-x-2"
+                aria-label="Follow us on TikTok"
+              >
+                <div className="w-9 h-9 bg-gray-800 rounded-lg hover:bg-gray-700 flex items-center justify-center transition-colors">
+                  <span className="text-sm font-bold">TT</span>
+                </div>
+                <span>Follow us on TikTok</span>
               </a>
             </div>
           </div>
@@ -149,10 +191,18 @@ const Footer = () => {
               © {currentYear} Silahub Technologies. All rights reserved.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
-              <Link to="/privacy" onClick={handleLinkClick} className="text-gray-400 hover:text-white text-sm transition-colors">
+              <Link
+                to="/privacy"
+                onClick={handleLinkClick}
+                className="text-gray-400 hover:text-white text-sm transition-colors"
+              >
                 Privacy Policy
               </Link>
-              <Link to="/terms" onClick={handleLinkClick} className="text-gray-400 hover:text-white text-sm transition-colors">
+              <Link
+                to="/terms"
+                onClick={handleLinkClick}
+                className="text-gray-400 hover:text-white text-sm transition-colors"
+              >
                 Terms of Service
               </Link>
             </div>

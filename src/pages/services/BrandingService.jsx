@@ -5,84 +5,117 @@ import * as FiIcons from 'react-icons/fi';
 import SafeIcon from '../../common/SafeIcon';
 import LeadCaptureForm from '../../components/leads/LeadCaptureForm';
 
-const { FiFacebook, FiUsers, FiTarget, FiTrendingUp, FiCheck, FiArrowRight, FiHeart } = FiIcons;
+const { FiHeart, FiEye, FiImage, FiTrendingUp, FiCheck, FiArrowRight, FiStar } = FiIcons;
 
-const FacebookAdsCalgary = () => {
+const BrandingService = () => {
   React.useEffect(() => {
-    document.title = 'Facebook Ads Calgary | Social Media Advertising Services - Silahub Technologies';
+    document.title = 'Branding Services Calgary | Brand Development & Design - Silahub Technologies';
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
-      metaDescription.setAttribute('content', 'Professional Facebook Ads management in Calgary. Expert social media advertising for home service businesses. Target local customers with proven Facebook marketing strategies.');
+      metaDescription.setAttribute('content', 'Professional branding services in Calgary. Logo design, brand identity, visual branding for home service businesses. Create a memorable brand that attracts customers.');
     }
   }, []);
 
-  const facebookAdsServices = [
+  const brandingServices = [
     {
-      icon: FiTarget,
-      title: 'Audience Targeting & Research',
-      description: 'Reach your ideal Calgary customers with precise targeting',
+      icon: FiImage,
+      title: 'Logo Design & Identity',
+      description: 'Create a memorable logo and brand identity that represents your business',
       features: [
-        'Local geographic targeting',
-        'Demographic & interest targeting',
-        'Lookalike audience creation',
-        'Custom audience development'
+        'Custom logo design',
+        'Brand color palette',
+        'Typography selection',
+        'Logo variations & formats'
       ]
     },
     {
-      icon: FiFacebook,
-      title: 'Creative Design & Copywriting',
-      description: 'Eye-catching ads that stop the scroll and drive action',
+      icon: FiEye,
+      title: 'Visual Brand Guidelines',
+      description: 'Comprehensive brand guidelines for consistent application',
       features: [
-        'Professional ad creative design',
-        'Compelling ad copywriting',
-        'Video ad production',
-        'A/B testing creative variations'
+        'Brand style guide',
+        'Logo usage guidelines',
+        'Color specifications',
+        'Typography standards'
+      ]
+    },
+    {
+      icon: FiHeart,
+      title: 'Marketing Materials',
+      description: 'Professional marketing materials that reflect your brand',
+      features: [
+        'Business cards & stationery',
+        'Vehicle wrap designs',
+        'Yard sign templates',
+        'Digital marketing assets'
       ]
     },
     {
       icon: FiTrendingUp,
-      title: 'Campaign Management',
-      description: 'Full-service Facebook advertising management',
+      title: 'Brand Strategy',
+      description: 'Strategic brand positioning for your target market',
       features: [
-        'Campaign setup & optimization',
-        'Bid strategy management',
-        'Performance monitoring',
-        'Budget optimization'
+        'Brand positioning',
+        'Competitive analysis',
+        'Target audience research',
+        'Brand messaging framework'
       ]
+    }
+  ];
+
+  const brandingProcess = [
+    {
+      step: '01',
+      title: 'Discovery & Research',
+      description: 'We learn about your business, values, target audience, and competitive landscape to inform the brand strategy.'
     },
     {
-      icon: FiUsers,
-      title: 'Lead Generation Campaigns',
-      description: 'Generate qualified leads directly from Facebook',
-      features: [
-        'Lead form optimization',
-        'CRM integration setup',
-        'Lead nurturing sequences',
-        'Conversion tracking'
-      ]
+      step: '02',
+      title: 'Brand Strategy Development',
+      description: 'Create a comprehensive brand strategy including positioning, messaging, and visual direction.'
+    },
+    {
+      step: '03',
+      title: 'Visual Identity Creation',
+      description: 'Design your logo, select colors and typography, and create the visual elements of your brand.'
+    },
+    {
+      step: '04',
+      title: 'Brand Guidelines',
+      description: 'Develop comprehensive guidelines to ensure consistent brand application across all touchpoints.'
+    },
+    {
+      step: '05',
+      title: 'Marketing Materials',
+      description: 'Create branded marketing materials and templates for ongoing business needs.'
+    },
+    {
+      step: '06',
+      title: 'Brand Launch Support',
+      description: 'Assist with implementing your new brand across all business touchpoints and marketing channels.'
     }
   ];
 
   const faqs = [
     {
-      question: "How much should I spend on Facebook Ads in Calgary?",
-      answer: "For Calgary home service businesses, we typically recommend starting with $1,000-2,000 per month in ad spend, plus our $1,000 management fee. This allows for effective testing and optimization while generating meaningful results."
+      question: "How long does the branding process take?",
+      answer: "A complete branding project typically takes 4-6 weeks, depending on the scope. Logo design alone can be completed in 2-3 weeks, while comprehensive brand identity projects require more time for research and development."
     },
     {
-      question: "What types of Facebook ads work best for home service businesses?",
-      answer: "Video ads showcasing your work, before/after photos, customer testimonials, and local community engagement posts perform best. We also use lead generation forms and carousel ads to showcase multiple services."
+      question: "What's included in the brand guidelines?",
+      answer: "Our brand guidelines include logo usage rules, color specifications (RGB, CMYK, HEX), typography guidelines, spacing requirements, do's and don'ts, and examples of proper brand application across various materials."
     },
     {
-      question: "How do you target local Calgary customers on Facebook?",
-      answer: "We use geographic targeting for Calgary and surrounding areas, demographic targeting for homeowners, interest-based targeting for home improvement topics, and create lookalike audiences based on your best customers."
+      question: "Can you rebrand an existing business?",
+      answer: "Absolutely! We specialize in rebranding established businesses. We'll assess your current brand, understand what's working, and develop a strategy to evolve your brand while maintaining customer recognition where beneficial."
     },
     {
-      question: "Can Facebook Ads compete with Google Ads for home services?",
-      answer: "Facebook Ads are excellent for building brand awareness and reaching customers who aren't actively searching yet. They work best when combined with Google Ads for a comprehensive digital marketing strategy."
+      question: "Do you provide files in different formats?",
+      answer: "Yes, you'll receive your logo and brand assets in multiple formats including AI, EPS, PNG, JPG, and PDF. We provide both high-resolution and web-optimized versions for all your marketing needs."
     },
     {
-      question: "How do you track ROI from Facebook advertising?",
-      answer: "We track phone calls, form submissions, and website conversions. We also implement Facebook Pixel tracking and integrate with your CRM to measure lead quality and customer lifetime value."
+      question: "How much input do I have in the design process?",
+      answer: "You're involved throughout the entire process. We start with a discovery session, present initial concepts for feedback, and refine designs based on your input. Your satisfaction is our priority."
     }
   ];
 
@@ -100,32 +133,32 @@ const FacebookAdsCalgary = () => {
               <div>
                 <div className="inline-flex items-center space-x-2 bg-silahub-secondary text-silahub-primary px-4 py-2 rounded-full text-sm font-medium mb-4">
                   <SafeIcon icon={FiHeart} className="w-4 h-4" />
-                  <span>Build Brand Awareness</span>
+                  <span>Build Your Brand</span>
                 </div>
                 <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight mb-4 lg:mb-6">
-                  Facebook Ads Calgary - 
-                  <span className="text-silahub-primary"> Reach Local Customers</span>
+                  Branding Services Calgary - 
+                  <span className="text-silahub-primary"> Professional Brand Development</span>
                 </h1>
                 <p className="text-lg lg:text-xl text-gray-600 leading-relaxed">
-                  Connect with Calgary homeowners on Facebook and Instagram with targeted advertising campaigns that build brand awareness and generate quality leads for your home service business.
+                  Create a memorable brand identity that sets your Calgary home service business apart. Professional logo design, brand guidelines, and marketing materials that attract customers and build trust.
                 </p>
               </div>
               <div className="grid grid-cols-2 gap-3 lg:gap-4">
                 <div className="flex items-center space-x-2">
                   <SafeIcon icon={FiCheck} className="w-4 lg:w-5 h-4 lg:h-5 text-green-500" />
-                  <span className="text-sm lg:text-base text-gray-700">Local audience targeting</span>
+                  <span className="text-sm lg:text-base text-gray-700">Custom logo design</span>
                 </div>
                 <div className="flex items-center space-x-2">
                   <SafeIcon icon={FiCheck} className="w-4 lg:w-5 h-4 lg:h-5 text-green-500" />
-                  <span className="text-sm lg:text-base text-gray-700">Brand awareness growth</span>
+                  <span className="text-sm lg:text-base text-gray-700">Brand guidelines</span>
                 </div>
                 <div className="flex items-center space-x-2">
                   <SafeIcon icon={FiCheck} className="w-4 lg:w-5 h-4 lg:h-5 text-green-500" />
-                  <span className="text-sm lg:text-base text-gray-700">Lead generation focus</span>
+                  <span className="text-sm lg:text-base text-gray-700">Marketing materials</span>
                 </div>
                 <div className="flex items-center space-x-2">
                   <SafeIcon icon={FiCheck} className="w-4 lg:w-5 h-4 lg:h-5 text-green-500" />
-                  <span className="text-sm lg:text-base text-gray-700">Creative ad design</span>
+                  <span className="text-sm lg:text-base text-gray-700">Brand strategy</span>
                 </div>
               </div>
               <div className="flex flex-col sm:flex-row gap-4">
@@ -133,14 +166,14 @@ const FacebookAdsCalgary = () => {
                   to="/contact"
                   className="bg-silahub-primary text-white px-6 lg:px-8 py-3 lg:py-4 rounded-lg font-semibold hover:bg-primary-800 transition-colors inline-flex items-center justify-center space-x-2"
                 >
-                  <span>Get Facebook Ads Strategy</span>
+                  <span>Get Brand Consultation</span>
                   <SafeIcon icon={FiArrowRight} className="w-4 lg:w-5 h-4 lg:h-5" />
                 </Link>
                 <Link
-                  to="/case-studies"
+                  to="/portfolio"
                   className="border-2 border-gray-300 text-gray-700 px-6 lg:px-8 py-3 lg:py-4 rounded-lg font-semibold hover:border-silahub-primary hover:text-silahub-primary transition-colors inline-flex items-center justify-center space-x-2"
                 >
-                  <span>View Social Media Results</span>
+                  <span>View Brand Work</span>
                 </Link>
               </div>
             </motion.div>
@@ -153,15 +186,15 @@ const FacebookAdsCalgary = () => {
               <div className="bg-white rounded-2xl shadow-2xl p-6 lg:p-8">
                 <div className="text-center mb-6">
                   <h3 className="text-xl lg:text-2xl font-bold text-gray-900 mb-2">
-                    Free Facebook Ads Consultation
+                    Free Brand Consultation
                   </h3>
                   <p className="text-gray-600">
-                    Discover how to reach more Calgary customers
+                    Discover how to build a powerful brand
                   </p>
                 </div>
                 <LeadCaptureForm
-                  source="facebook-ads-calgary-page"
-                  ctaText="Get My Facebook Strategy"
+                  source="branding-service-calgary-page"
+                  ctaText="Get My Brand Strategy"
                   className="space-y-4"
                 />
               </div>
@@ -170,7 +203,7 @@ const FacebookAdsCalgary = () => {
         </div>
       </section>
 
-      {/* Facebook Ads Services */}
+      {/* Services */}
       <section className="py-16 lg:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -180,14 +213,14 @@ const FacebookAdsCalgary = () => {
             className="text-center mb-12 lg:mb-16"
           >
             <h2 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-4">
-              Complete Facebook Advertising Services
+              Complete Branding Services
             </h2>
             <p className="text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto">
-              From audience research to creative design, we handle every aspect of your Facebook and Instagram advertising to maximize your reach and lead generation in Calgary.
+              From logo design to complete brand identity systems, we create cohesive branding that helps your Calgary business stand out and attract customers.
             </p>
           </motion.div>
           <div className="grid sm:grid-cols-2 gap-6 lg:gap-8">
-            {facebookAdsServices.map((service, index) => (
+            {brandingServices.map((service, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
@@ -223,8 +256,51 @@ const FacebookAdsCalgary = () => {
         </div>
       </section>
 
-      {/* FAQ Section */}
+      {/* Process */}
       <section className="py-16 lg:py-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-12 lg:mb-16"
+          >
+            <h2 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-4">
+              Our Branding Process
+            </h2>
+            <p className="text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto">
+              A strategic approach to brand development that ensures your brand resonates with your target audience and supports business growth.
+            </p>
+          </motion.div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+            {brandingProcess.map((step, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="relative"
+              >
+                <div className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow">
+                  <div className="text-2xl lg:text-4xl font-bold text-silahub-primary mb-4">
+                    {step.step}
+                  </div>
+                  <h3 className="text-lg lg:text-xl font-semibold text-gray-900 mb-3">
+                    {step.title}
+                  </h3>
+                  <p className="text-gray-600 text-sm lg:text-base">
+                    {step.description}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="py-16 lg:py-20 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -233,7 +309,7 @@ const FacebookAdsCalgary = () => {
             className="text-center mb-12 lg:mb-16"
           >
             <h2 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-4">
-              Facebook Ads Frequently Asked Questions
+              Branding Frequently Asked Questions
             </h2>
           </motion.div>
           <div className="space-y-6">
@@ -244,7 +320,7 @@ const FacebookAdsCalgary = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="bg-white rounded-xl p-6 shadow-lg"
+                className="bg-gray-50 rounded-xl p-6"
               >
                 <h3 className="text-lg font-semibold text-gray-900 mb-3">
                   {faq.question}
@@ -267,16 +343,16 @@ const FacebookAdsCalgary = () => {
             viewport={{ once: true }}
           >
             <h2 className="text-2xl lg:text-3xl font-bold text-white mb-6">
-              Ready to Reach More Calgary Customers?
+              Ready to Build a Memorable Brand?
             </h2>
             <p className="text-lg lg:text-xl text-silahub-light mb-8">
-              Professional Facebook advertising that builds your brand and generates leads.
+              Professional branding that sets your Calgary business apart from the competition.
             </p>
             <Link
               to="/contact"
               className="bg-white text-silahub-primary px-6 lg:px-8 py-3 lg:py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors inline-flex items-center space-x-2"
             >
-              <span>Start Your Facebook Campaigns</span>
+              <span>Start Your Brand Project</span>
               <SafeIcon icon={FiArrowRight} className="w-4 lg:w-5 h-4 lg:h-5" />
             </Link>
           </motion.div>
@@ -286,4 +362,4 @@ const FacebookAdsCalgary = () => {
   );
 };
 
-export default FacebookAdsCalgary;
+export default BrandingService;

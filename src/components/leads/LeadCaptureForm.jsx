@@ -8,12 +8,12 @@ import { useLead } from '../../contexts/LeadContext';
 
 const { FiUser, FiMail, FiPhone, FiBriefcase, FiLoader } = FiIcons;
 
-const LeadCaptureForm = ({ 
-  source = 'general', 
-  ctaText = 'Get Started', 
-  className = '', 
-  showBusiness = true, 
-  showPhone = true 
+const LeadCaptureForm = ({
+  source = 'general',
+  ctaText = 'Get Started',
+  className = '',
+  showBusiness = true,
+  showPhone = true
 }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { addLead } = useLead();
@@ -21,7 +21,7 @@ const LeadCaptureForm = ({
 
   const onSubmit = async (data) => {
     setIsSubmitting(true);
-    
+
     try {
       // Add lead to context
       await addLead({

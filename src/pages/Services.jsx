@@ -5,7 +5,7 @@ import * as FiIcons from 'react-icons/fi';
 import SafeIcon from '../common/SafeIcon';
 import LeadCaptureForm from '../components/leads/LeadCaptureForm';
 
-const { FiSearch, FiTarget, FiFacebook, FiUsers, FiMonitor, FiStar, FiEdit3, FiArrowRight, FiCheck } = FiIcons;
+const { FiSearch, FiTarget, FiFacebook, FiUsers, FiMonitor, FiStar, FiEdit3, FiArrowRight, FiCheck, FiHeart, FiMapPin, FiShield } = FiIcons;
 
 const Services = () => {
   // Set page title and meta description
@@ -171,40 +171,105 @@ const Services = () => {
       pricing: 'Starting at $1,200/month',
       color: 'from-indigo-500 to-purple-600',
       slug: 'content-marketing-calgary'
+    },
+    {
+      icon: FiHeart,
+      title: 'Branding Services',
+      description: 'Create a memorable brand identity that sets your business apart with professional logo design and brand guidelines.',
+      features: [
+        'Logo design & identity',
+        'Brand guidelines',
+        'Marketing materials',
+        'Brand strategy',
+        'Visual identity system',
+        'Brand implementation'
+      ],
+      benefits: [
+        'Professional brand image',
+        'Increased brand recognition',
+        'Consistent marketing materials',
+        'Competitive differentiation'
+      ],
+      pricing: 'Starting at $2,500 one-time',
+      color: 'from-rose-500 to-pink-600',
+      slug: 'branding-service'
+    },
+    {
+      icon: FiMapPin,
+      title: 'Google Maps SEO',
+      description: 'Dominate Google Maps and local search results with comprehensive Google My Business optimization.',
+      features: [
+        'Google My Business optimization',
+        'Local citation building',
+        'Review management',
+        'Map ranking optimization',
+        'Local SEO strategy',
+        'Performance tracking'
+      ],
+      benefits: [
+        'Higher local visibility',
+        'More map clicks',
+        'Improved local rankings',
+        'Increased foot traffic'
+      ],
+      pricing: 'Starting at $800/month',
+      color: 'from-emerald-500 to-green-600',
+      slug: 'google-maps-seo'
+    },
+    {
+      icon: FiShield,
+      title: 'Google Local Service Ads',
+      description: 'Get Google Screened and appear at the top of search results with pay-per-lead Local Service Ads.',
+      features: [
+        'Google Screened verification',
+        'Lead management system',
+        'Budget optimization',
+        'Performance tracking',
+        'Review management',
+        'Monthly reporting'
+      ],
+      benefits: [
+        'Top search placement',
+        'Pay per lead only',
+        'Google Screened badge',
+        'Immediate visibility'
+      ],
+      pricing: 'Starting at $600/month + cost per lead',
+      color: 'from-blue-600 to-indigo-600',
+      slug: 'google-local-service-ads'
     }
   ];
 
   return (
     <>
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-primary-50 to-secondary-50 py-20">
+      <section className="bg-gradient-to-br from-primary-50 to-secondary-50 py-12 sm:py-16 lg:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
+          <div className="text-center mb-12 lg:mb-16">
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6"
+              className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6"
             >
-              Digital Marketing Services for
-              <span className="text-primary-600"> Home Service Businesses</span>
+              Digital Marketing Services for{' '}
+              <span className="text-primary-600">Home Service Businesses</span>
             </motion.h1>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              className="text-xl text-gray-600 max-w-3xl mx-auto"
+              className="text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto"
             >
-              We specialize in helping contractors and home service businesses in Calgary dominate their 
-              local market with proven digital marketing strategies that generate qualified leads and increase revenue.
+              We specialize in helping contractors and home service businesses in Calgary dominate their local market with proven digital marketing strategies that generate qualified leads and increase revenue.
             </motion.p>
           </div>
         </div>
       </section>
 
       {/* Services Grid */}
-      <section className="py-20 bg-white">
+      <section className="py-16 lg:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid gap-12">
+          <div className="grid gap-8 lg:gap-12">
             {services.map((service, index) => (
               <motion.div
                 key={index}
@@ -214,47 +279,44 @@ const Services = () => {
                 transition={{ delay: index * 0.1 }}
                 className="bg-white rounded-2xl shadow-xl overflow-hidden"
               >
-                <div className="grid lg:grid-cols-2 gap-8">
+                <div className="grid lg:grid-cols-2 gap-6 lg:gap-8">
                   {/* Content */}
-                  <div className="p-8 lg:p-12">
-                    <div className={`w-16 h-16 bg-gradient-to-r ${service.color} rounded-xl flex items-center justify-center mb-6`}>
-                      <SafeIcon icon={service.icon} className="w-8 h-8 text-white" />
+                  <div className="p-6 lg:p-12">
+                    <div className={`w-12 lg:w-16 h-12 lg:h-16 bg-gradient-to-r ${service.color} rounded-xl flex items-center justify-center mb-6`}>
+                      <SafeIcon icon={service.icon} className="w-6 lg:w-8 h-6 lg:h-8 text-white" />
                     </div>
-                    <h2 className="text-3xl font-bold text-gray-900 mb-4">
+                    <h2 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-4">
                       {service.title}
                     </h2>
-                    <p className="text-gray-600 mb-6 text-lg">
+                    <p className="text-gray-600 mb-6 text-base lg:text-lg">
                       {service.description}
                     </p>
-                    
                     <div className="mb-6">
                       <h3 className="text-lg font-semibold text-gray-900 mb-3">What's Included:</h3>
                       <ul className="space-y-2">
                         {service.features.map((feature, featureIndex) => (
                           <li key={featureIndex} className="flex items-center text-gray-600">
-                            <SafeIcon icon={FiCheck} className="w-5 h-5 text-green-500 mr-3 flex-shrink-0" />
-                            {feature}
+                            <SafeIcon icon={FiCheck} className="w-4 lg:w-5 h-4 lg:h-5 text-green-500 mr-3 flex-shrink-0" />
+                            <span className="text-sm lg:text-base">{feature}</span>
                           </li>
                         ))}
                       </ul>
                     </div>
-
                     <div className="bg-gray-50 rounded-lg p-4 mb-6">
-                      <div className="text-2xl font-bold text-primary-600 mb-2">{service.pricing}</div>
+                      <div className="text-xl lg:text-2xl font-bold text-primary-600 mb-2">{service.pricing}</div>
                       <p className="text-sm text-gray-600">No setup fees • No long-term contracts</p>
                     </div>
-
-                    <div className="flex gap-4">
+                    <div className="flex flex-col sm:flex-row gap-4">
                       <Link
                         to={`/services/${service.slug}`}
-                        className="bg-primary-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary-700 transition-colors inline-flex items-center space-x-2"
+                        className="bg-primary-600 text-white px-4 lg:px-6 py-2 lg:py-3 rounded-lg font-semibold hover:bg-primary-700 transition-colors inline-flex items-center justify-center space-x-2"
                       >
                         <span>Learn More</span>
-                        <SafeIcon icon={FiArrowRight} className="w-5 h-5" />
+                        <SafeIcon icon={FiArrowRight} className="w-4 lg:w-5 h-4 lg:h-5" />
                       </Link>
                       <Link
                         to="/contact"
-                        className="border border-primary-600 text-primary-600 px-6 py-3 rounded-lg font-semibold hover:bg-primary-50 transition-colors"
+                        className="border border-primary-600 text-primary-600 px-4 lg:px-6 py-2 lg:py-3 rounded-lg font-semibold hover:bg-primary-50 transition-colors text-center"
                       >
                         Get Quote
                       </Link>
@@ -262,15 +324,15 @@ const Services = () => {
                   </div>
 
                   {/* Benefits */}
-                  <div className="bg-gray-50 p-8 lg:p-12 flex flex-col justify-center">
-                    <h3 className="text-2xl font-bold text-gray-900 mb-6">Key Benefits</h3>
+                  <div className="bg-gray-50 p-6 lg:p-12 flex flex-col justify-center">
+                    <h3 className="text-xl lg:text-2xl font-bold text-gray-900 mb-6">Key Benefits</h3>
                     <ul className="space-y-4">
                       {service.benefits.map((benefit, benefitIndex) => (
                         <li key={benefitIndex} className="flex items-start">
-                          <div className={`w-6 h-6 bg-gradient-to-r ${service.color} rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0`}>
-                            <SafeIcon icon={FiCheck} className="w-4 h-4 text-white" />
+                          <div className={`w-5 lg:w-6 h-5 lg:h-6 bg-gradient-to-r ${service.color} rounded-full flex items-center justify-center mr-3 lg:mr-4 mt-1 flex-shrink-0`}>
+                            <SafeIcon icon={FiCheck} className="w-3 lg:w-4 h-3 lg:h-4 text-white" />
                           </div>
-                          <span className="text-gray-700 font-medium">{benefit}</span>
+                          <span className="text-gray-700 font-medium text-sm lg:text-base">{benefit}</span>
                         </li>
                       ))}
                     </ul>
@@ -283,21 +345,21 @@ const Services = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-primary-600 to-secondary-600">
+      <section className="py-16 lg:py-20 bg-gradient-to-r from-primary-600 to-secondary-600">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-3xl font-bold text-white mb-6">
+            <h2 className="text-2xl lg:text-3xl font-bold text-white mb-6">
               Ready to Grow Your Business?
             </h2>
-            <p className="text-xl text-primary-100 mb-8">
+            <p className="text-lg lg:text-xl text-primary-100 mb-8">
               Get a free marketing audit and custom strategy for your home service business.
             </p>
-            <div className="bg-white rounded-2xl p-8 max-w-md mx-auto">
-              <LeadCaptureForm 
+            <div className="bg-white rounded-2xl p-6 lg:p-8 max-w-md mx-auto">
+              <LeadCaptureForm
                 source="services-page"
                 ctaText="Get My Free Audit"
                 className="space-y-4"

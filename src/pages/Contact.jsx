@@ -4,7 +4,7 @@ import * as FiIcons from 'react-icons/fi';
 import SafeIcon from '../common/SafeIcon';
 import LeadCaptureForm from '../components/leads/LeadCaptureForm';
 
-const { FiPhone, FiMail, FiMapPin, FiClock, FiMessageCircle, FiFacebook, FiLinkedin, FiInstagram } = FiIcons;
+const { FiPhone, FiMail, FiMapPin, FiClock, FiMessageCircle, FiFacebook, FiLinkedin, FiInstagram, FiYoutube, FiTwitter } = FiIcons;
 
 const Contact = () => {
   // Set page title and meta description
@@ -47,6 +47,34 @@ const Contact = () => {
     }
   ];
 
+  const socialLinks = [
+    {
+      name: 'Facebook',
+      icon: FiFacebook,
+      url: 'https://www.facebook.com/silahubtechnologies'
+    },
+    {
+      name: 'Instagram',
+      icon: FiInstagram,
+      url: 'https://www.instagram.com/silahubtechnologies'
+    },
+    {
+      name: 'LinkedIn',
+      icon: FiLinkedin,
+      url: 'https://www.linkedin.com/company/silahubtechnologies'
+    },
+    {
+      name: 'YouTube',
+      icon: FiYoutube,
+      url: 'https://www.youtube.com/@silahubtechnologies'
+    },
+    {
+      name: 'X (Twitter)',
+      icon: FiTwitter,
+      url: 'https://x.com/silahubtech'
+    }
+  ];
+
   const faqs = [
     {
       question: 'How long does it take to see results?',
@@ -73,7 +101,7 @@ const Contact = () => {
   return (
     <>
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-primary-50 to-secondary-50 py-20">
+      <section className="bg-gray-50 py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
@@ -88,8 +116,7 @@ const Contact = () => {
             transition={{ delay: 0.1 }}
             className="text-xl text-gray-600 max-w-3xl mx-auto mb-8"
           >
-            Ready to transform your home service business? Contact us today for a free marketing audit 
-            and discover how we can help you dominate your local market.
+            Ready to transform your home service business? Contact us today for a free marketing audit and discover how we can help you dominate your local market.
           </motion.p>
         </div>
       </section>
@@ -108,16 +135,13 @@ const Contact = () => {
                 Get Started Today
               </h2>
               <p className="text-gray-600 mb-8">
-                Fill out the form below and we'll get back to you within 24 hours with your 
-                free marketing audit and custom strategy.
+                Fill out the form below and we'll get back to you within 24 hours with your free marketing audit and custom strategy.
               </p>
-              
-              <LeadCaptureForm 
+              <LeadCaptureForm
                 source="contact-page"
                 ctaText="Get My Free Audit"
                 className="space-y-6"
               />
-
               <div className="mt-6 text-center">
                 <p className="text-xs text-gray-500">
                   No spam. We respect your privacy. Unsubscribe at any time.
@@ -133,9 +157,7 @@ const Contact = () => {
               className="space-y-8"
             >
               <div>
-                <h2 className="text-2xl font-bold text-gray-900 mb-6">
-                  Contact Information
-                </h2>
+                <h2 className="text-2xl font-bold text-gray-900 mb-6">Contact Information</h2>
                 <p className="text-gray-600 mb-8">
                   Prefer to talk directly? We're here to help. Reach out through any of these channels.
                 </p>
@@ -150,7 +172,7 @@ const Contact = () => {
                     <div className="flex-1">
                       <h3 className="font-semibold text-gray-900 mb-1">{item.title}</h3>
                       {item.action ? (
-                        <a 
+                        <a
                           href={item.action}
                           className="text-primary-600 hover:text-primary-700 font-medium transition-colors"
                         >
@@ -168,17 +190,38 @@ const Contact = () => {
               {/* Social Media */}
               <div className="pt-8 border-t border-gray-200">
                 <h3 className="font-semibold text-gray-900 mb-4">Follow Us</h3>
-                <div className="flex space-x-4">
-                  <a href="#" className="bg-gray-100 p-3 rounded-lg hover:bg-primary-100 transition-colors">
-                    <SafeIcon icon={FiFacebook} className="w-5 h-5 text-gray-600 hover:text-primary-600" />
-                  </a>
-                  <a href="#" className="bg-gray-100 p-3 rounded-lg hover:bg-primary-100 transition-colors">
-                    <SafeIcon icon={FiLinkedin} className="w-5 h-5 text-gray-600 hover:text-primary-600" />
-                  </a>
-                  <a href="#" className="bg-gray-100 p-3 rounded-lg hover:bg-primary-100 transition-colors">
-                    <SafeIcon icon={FiInstagram} className="w-5 h-5 text-gray-600 hover:text-primary-600" />
+                <div className="flex flex-wrap gap-3">
+                  {socialLinks.map((social) => (
+                    <a
+                      key={social.name}
+                      href={social.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="bg-gray-100 p-3 rounded-lg hover:bg-primary-100 transition-colors group"
+                      aria-label={`Follow us on ${social.name}`}
+                    >
+                      <SafeIcon 
+                        icon={social.icon} 
+                        className="w-5 h-5 text-gray-600 group-hover:text-primary-600 transition-colors" 
+                      />
+                    </a>
+                  ))}
+                  {/* TikTok Link */}
+                  <a
+                    href="https://www.tiktok.com/@silahub.technolog"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-gray-100 p-3 rounded-lg hover:bg-primary-100 transition-colors group flex items-center justify-center"
+                    aria-label="Follow us on TikTok"
+                  >
+                    <span className="text-gray-600 group-hover:text-primary-600 transition-colors font-bold text-sm">
+                      TT
+                    </span>
                   </a>
                 </div>
+                <p className="text-sm text-gray-500 mt-3">
+                  Stay updated with our latest tips and success stories
+                </p>
               </div>
             </motion.div>
           </div>
@@ -225,7 +268,7 @@ const Contact = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-primary-600 to-secondary-600">
+      <section className="py-20 bg-silahub-primary">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -235,21 +278,20 @@ const Contact = () => {
             <h2 className="text-3xl font-bold text-white mb-6">
               Ready to Get Started?
             </h2>
-            <p className="text-xl text-primary-100 mb-8">
-              Don't wait any longer. Your competitors are already investing in digital marketing. 
-              Let's get your business ahead of the curve.
+            <p className="text-xl text-silahub-secondary mb-8">
+              Don't wait any longer. Your competitors are already investing in digital marketing. Let's get your business ahead of the curve.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
                 href="tel:8252888332"
-                className="bg-white text-primary-600 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors inline-flex items-center justify-center space-x-2"
+                className="bg-white text-silahub-primary px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors inline-flex items-center justify-center space-x-2"
               >
                 <SafeIcon icon={FiPhone} className="w-5 h-5" />
                 <span>Call Now: 825-288-8332</span>
               </a>
               <a
                 href="mailto:hello@silahub.com"
-                className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-primary-600 transition-colors inline-flex items-center justify-center space-x-2"
+                className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-silahub-primary transition-colors inline-flex items-center justify-center space-x-2"
               >
                 <SafeIcon icon={FiMail} className="w-5 h-5" />
                 <span>Send Email</span>

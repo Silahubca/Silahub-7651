@@ -14,6 +14,7 @@ import Home from './pages/Home';
 import Services from './pages/Services';
 import Pricing from './pages/Pricing';
 import CaseStudies from './pages/CaseStudies';
+import Portfolio from './pages/Portfolio';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import Blog from './pages/Blog';
@@ -31,6 +32,9 @@ import FacebookAdsCalgary from './pages/services/FacebookAdsCalgary';
 import SocialMediaManagementCalgary from './pages/services/SocialMediaManagementCalgary';
 import WebDesignCalgary from './pages/services/WebDesignCalgary';
 import ReputationManagementCalgary from './pages/services/ReputationManagementCalgary';
+import BrandingService from './pages/services/BrandingService';
+import GoogleMapsSEO from './pages/services/GoogleMapsSEO';
+import GoogleLocalServiceAds from './pages/services/GoogleLocalServiceAds';
 
 // Contexts
 import { LeadProvider } from './contexts/LeadContext';
@@ -65,8 +69,12 @@ function App() {
                   <Route path="/services/social-media-management-calgary" element={<SocialMediaManagementCalgary />} />
                   <Route path="/services/web-design-calgary" element={<WebDesignCalgary />} />
                   <Route path="/services/reputation-management-calgary" element={<ReputationManagementCalgary />} />
+                  <Route path="/services/branding-service" element={<BrandingService />} />
+                  <Route path="/services/google-maps-seo" element={<GoogleMapsSEO />} />
+                  <Route path="/services/google-local-service-ads" element={<GoogleLocalServiceAds />} />
                   <Route path="/pricing" element={<Pricing />} />
                   <Route path="/case-studies" element={<CaseStudies />} />
+                  <Route path="/portfolio" element={<Portfolio />} />
                   <Route path="/about" element={<About />} />
                   <Route path="/contact" element={<Contact />} />
                   <Route path="/blog" element={<Blog />} />

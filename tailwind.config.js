@@ -8,45 +8,33 @@ export default {
     extend: {
       colors: {
         primary: {
-          50: '#fdf4ff',
-          100: '#fae8ff',
-          200: '#f5d0fe',
-          300: '#f0abfc',
-          400: '#e879f9',
-          500: '#d946ef',
-          600: '#c026d3',
-          700: '#a21caf',
-          800: '#86198f',
+          50: '#f8f4f8',
+          100: '#f1e9f1',
+          200: '#e3d3e3',
+          300: '#d5bdd5',
+          400: '#c7a7c7',
+          500: '#b991b9',
+          600: '#9f6b9f',
+          700: '#7d547d',
+          800: '#5b3d5b',
           900: '#4B154B', // Your primary color
         },
         secondary: {
-          50: '#FDF1EF', // Your secondary 2 color
+          50: '#fdfcfc',
           100: '#EFCECF', // Your secondary color
-          200: '#fecdd3',
-          300: '#fda4af',
-          400: '#fb7185',
-          500: '#f43f5e',
-          600: '#e11d48',
-          700: '#be123c',
-          800: '#9f1239',
-          900: '#881337',
-        },
-        accent: {
-          50: '#FDF1EF',
-          100: '#EFCECF',
-          200: '#fecaca',
-          300: '#fca5a5',
-          400: '#f87171',
-          500: '#ef4444',
-          600: '#dc2626',
-          700: '#b91c1c',
-          800: '#991b1b',
-          900: '#7f1d1d',
+          200: '#e7babe',
+          300: '#dfa6ad',
+          400: '#d7929c',
+          500: '#cf7e8b',
+          600: '#c16a7a',
+          700: '#a85469',
+          800: '#8f3e58',
+          900: '#762847',
         },
         silahub: {
-          primary: '#4B154B',
-          secondary: '#EFCECF',
-          light: '#FDF1EF',
+          primary: '#4B154B',    // Main brand color
+          secondary: '#EFCECF',  // Secondary brand color
+          light: '#f8f4f8',      // Very light version for backgrounds
         }
       },
       fontFamily: {

@@ -41,7 +41,7 @@ const StatsSection = () => {
   ];
 
   return (
-    <section className="py-20 bg-gradient-to-r from-silahub-primary to-primary-800">
+    <section className="py-20 bg-silahub-primary">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           ref={ref}
@@ -52,9 +52,8 @@ const StatsSection = () => {
           <h2 className="text-4xl font-bold text-white mb-4">
             Proven Results That Speak for Themselves
           </h2>
-          <p className="text-xl text-silahub-light max-w-3xl mx-auto">
-            We've helped hundreds of home service businesses across Calgary and beyond achieve 
-            remarkable growth through strategic digital marketing.
+          <p className="text-xl text-silahub-secondary max-w-3xl mx-auto">
+            We've helped hundreds of home service businesses across Calgary and beyond achieve remarkable growth through strategic digital marketing.
           </p>
         </motion.div>
 
@@ -67,22 +66,22 @@ const StatsSection = () => {
               transition={{ delay: index * 0.1 }}
               className="text-center"
             >
-              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 hover:bg-white/20 transition-all duration-300">
-                <div className="bg-white/20 w-16 h-16 rounded-lg flex items-center justify-center mx-auto mb-4">
+              <div className="bg-white bg-opacity-10 backdrop-blur-sm rounded-xl p-6 hover:bg-opacity-20 transition-all duration-300">
+                <div className="bg-white bg-opacity-20 w-16 h-16 rounded-lg flex items-center justify-center mx-auto mb-4">
                   <SafeIcon icon={stat.icon} className="w-8 h-8 text-white" />
                 </div>
                 <div className="mb-2">
-                  <Counter 
-                    end={stat.number} 
-                    suffix={stat.suffix} 
-                    duration={2000} 
-                    start={inView} 
+                  <Counter
+                    end={stat.number}
+                    suffix={stat.suffix}
+                    duration={2000}
+                    start={inView}
                   />
                 </div>
                 <h3 className="text-lg font-semibold text-white mb-1">
                   {stat.label}
                 </h3>
-                <p className="text-silahub-light text-sm">
+                <p className="text-silahub-secondary text-sm">
                   {stat.description}
                 </p>
               </div>
@@ -97,10 +96,9 @@ const StatsSection = () => {
           transition={{ delay: 0.5 }}
           className="mt-20 text-center"
         >
-          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 max-w-4xl mx-auto">
+          <div className="bg-white bg-opacity-10 backdrop-blur-sm rounded-2xl p-8 max-w-4xl mx-auto">
             <blockquote className="text-xl text-white italic mb-6">
-              "Silahub Technologies transformed our plumbing business. We went from 10 leads per month 
-              to over 100 qualified leads. Their team understands home service businesses like no other agency."
+              "Silahub Technologies transformed our plumbing business. We went from 10 leads per month to over 100 qualified leads. Their team understands home service businesses like no other agency."
             </blockquote>
             <div className="flex items-center justify-center space-x-4">
               <img
@@ -110,7 +108,7 @@ const StatsSection = () => {
               />
               <div className="text-left">
                 <div className="text-white font-semibold">Mike Johnson</div>
-                <div className="text-silahub-light text-sm">Johnson Plumbing, Calgary</div>
+                <div className="text-silahub-secondary text-sm">Johnson Plumbing, Calgary</div>
               </div>
             </div>
           </div>

@@ -5,84 +5,111 @@ import * as FiIcons from 'react-icons/fi';
 import SafeIcon from '../../common/SafeIcon';
 import LeadCaptureForm from '../../components/leads/LeadCaptureForm';
 
-const { FiFacebook, FiUsers, FiTarget, FiTrendingUp, FiCheck, FiArrowRight, FiHeart } = FiIcons;
+const { FiMapPin, FiStar, FiSearch, FiTrendingUp, FiCheck, FiArrowRight, FiEye } = FiIcons;
 
-const FacebookAdsCalgary = () => {
+const GoogleMapsSEO = () => {
   React.useEffect(() => {
-    document.title = 'Facebook Ads Calgary | Social Media Advertising Services - Silahub Technologies';
+    document.title = 'Google Maps SEO Calgary | Google My Business Optimization - Silahub Technologies';
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
-      metaDescription.setAttribute('content', 'Professional Facebook Ads management in Calgary. Expert social media advertising for home service businesses. Target local customers with proven Facebook marketing strategies.');
+      metaDescription.setAttribute('content', 'Professional Google Maps SEO and Google My Business optimization in Calgary. Dominate local search results and Google Maps for home service businesses.');
     }
   }, []);
 
-  const facebookAdsServices = [
+  const gmbServices = [
     {
-      icon: FiTarget,
-      title: 'Audience Targeting & Research',
-      description: 'Reach your ideal Calgary customers with precise targeting',
+      icon: FiMapPin,
+      title: 'Google My Business Optimization',
+      description: 'Complete optimization of your GMB profile for maximum visibility',
       features: [
-        'Local geographic targeting',
-        'Demographic & interest targeting',
-        'Lookalike audience creation',
-        'Custom audience development'
+        'Profile setup & verification',
+        'Business information optimization',
+        'Category selection & keywords',
+        'Photo & video optimization'
       ]
     },
     {
-      icon: FiFacebook,
-      title: 'Creative Design & Copywriting',
-      description: 'Eye-catching ads that stop the scroll and drive action',
+      icon: FiStar,
+      title: 'Review Management',
+      description: 'Strategic review acquisition and management',
       features: [
-        'Professional ad creative design',
-        'Compelling ad copywriting',
-        'Video ad production',
-        'A/B testing creative variations'
+        'Review generation campaigns',
+        'Review response management',
+        'Rating improvement strategies',
+        'Review monitoring & alerts'
+      ]
+    },
+    {
+      icon: FiSearch,
+      title: 'Local Citation Building',
+      description: 'Build consistent citations across local directories',
+      features: [
+        'Local directory submissions',
+        'NAP consistency audits',
+        'Citation cleanup & corrections',
+        'Industry-specific listings'
       ]
     },
     {
       icon: FiTrendingUp,
-      title: 'Campaign Management',
-      description: 'Full-service Facebook advertising management',
+      title: 'Local Ranking Optimization',
+      description: 'Advanced strategies to improve local search rankings',
       features: [
-        'Campaign setup & optimization',
-        'Bid strategy management',
-        'Performance monitoring',
-        'Budget optimization'
+        'Local keyword optimization',
+        'Google Posts creation',
+        'Q&A optimization',
+        'Local link building'
       ]
+    }
+  ];
+
+  const gmbFeatures = [
+    {
+      feature: 'Google My Business Profile Setup',
+      description: 'Complete optimization of your GMB profile with all relevant business information.'
     },
     {
-      icon: FiUsers,
-      title: 'Lead Generation Campaigns',
-      description: 'Generate qualified leads directly from Facebook',
-      features: [
-        'Lead form optimization',
-        'CRM integration setup',
-        'Lead nurturing sequences',
-        'Conversion tracking'
-      ]
+      feature: 'Local Keyword Research',
+      description: 'Identify the best local keywords for your Calgary business to target.'
+    },
+    {
+      feature: 'Review Generation System',
+      description: 'Automated systems to generate positive reviews from satisfied customers.'
+    },
+    {
+      feature: 'Google Posts Management',
+      description: 'Regular posting of updates, offers, and news to keep your profile active.'
+    },
+    {
+      feature: 'Photo & Video Optimization',
+      description: 'High-quality visual content that showcases your work and business.'
+    },
+    {
+      feature: 'Local Citation Management',
+      description: 'Ensure consistent business information across all online directories.'
     }
   ];
 
   const faqs = [
     {
-      question: "How much should I spend on Facebook Ads in Calgary?",
-      answer: "For Calgary home service businesses, we typically recommend starting with $1,000-2,000 per month in ad spend, plus our $1,000 management fee. This allows for effective testing and optimization while generating meaningful results."
+      question: "What is Google My Business and why is it important?",
+      answer: "Google My Business (GMB) is a free tool that allows businesses to manage their online presence across Google Search and Google Maps. It's crucial for local businesses because it directly impacts your visibility when customers search for services in your area."
     },
     {
-      question: "What types of Facebook ads work best for home service businesses?",
-      answer: "Video ads showcasing your work, before/after photos, customer testimonials, and local community engagement posts perform best. We also use lead generation forms and carousel ads to showcase multiple services."
+      question: "How long does it take to see results from GMB optimization?",
+      answer: "You can see initial improvements within 2-4 weeks, with significant ranking improvements typically occurring within 2-3 months. Review generation and profile optimization show faster results than ranking improvements."
     },
     {
-      question: "How do you target local Calgary customers on Facebook?",
-      answer: "We use geographic targeting for Calgary and surrounding areas, demographic targeting for homeowners, interest-based targeting for home improvement topics, and create lookalike audiences based on your best customers."
+      question: "Do you help with Google My Business verification?",
+      answer: "Yes, we assist with the entire GMB verification process, including handling verification issues, re-verification for suspended profiles, and ensuring your business meets all of Google's guidelines."
     },
     {
-      question: "Can Facebook Ads compete with Google Ads for home services?",
-      answer: "Facebook Ads are excellent for building brand awareness and reaching customers who aren't actively searching yet. They work best when combined with Google Ads for a comprehensive digital marketing strategy."
+      question: "How many reviews do I need to rank well locally?",
+      answer: "While there's no magic number, businesses with 15+ recent, positive reviews typically perform better. However, review quality, recency, and response rates are often more important than quantity alone."
     },
     {
-      question: "How do you track ROI from Facebook advertising?",
-      answer: "We track phone calls, form submissions, and website conversions. We also implement Facebook Pixel tracking and integrate with your CRM to measure lead quality and customer lifetime value."
+      question: "What's the difference between GMB optimization and regular SEO?",
+      answer: "GMB optimization focuses specifically on local search factors like proximity, prominence, and relevance in Google Maps results. Regular SEO targets broader search rankings. Both work together for complete local visibility."
     }
   ];
 
@@ -99,33 +126,33 @@ const FacebookAdsCalgary = () => {
             >
               <div>
                 <div className="inline-flex items-center space-x-2 bg-silahub-secondary text-silahub-primary px-4 py-2 rounded-full text-sm font-medium mb-4">
-                  <SafeIcon icon={FiHeart} className="w-4 h-4" />
-                  <span>Build Brand Awareness</span>
+                  <SafeIcon icon={FiMapPin} className="w-4 h-4" />
+                  <span>Dominate Local Search</span>
                 </div>
                 <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight mb-4 lg:mb-6">
-                  Facebook Ads Calgary - 
-                  <span className="text-silahub-primary"> Reach Local Customers</span>
+                  Google Maps SEO Calgary - 
+                  <span className="text-silahub-primary"> Google My Business Optimization</span>
                 </h1>
                 <p className="text-lg lg:text-xl text-gray-600 leading-relaxed">
-                  Connect with Calgary homeowners on Facebook and Instagram with targeted advertising campaigns that build brand awareness and generate quality leads for your home service business.
+                  Dominate Google Maps and local search results with professional Google My Business optimization. Get found by customers searching for home services in Calgary.
                 </p>
               </div>
               <div className="grid grid-cols-2 gap-3 lg:gap-4">
                 <div className="flex items-center space-x-2">
                   <SafeIcon icon={FiCheck} className="w-4 lg:w-5 h-4 lg:h-5 text-green-500" />
-                  <span className="text-sm lg:text-base text-gray-700">Local audience targeting</span>
+                  <span className="text-sm lg:text-base text-gray-700">GMB optimization</span>
                 </div>
                 <div className="flex items-center space-x-2">
                   <SafeIcon icon={FiCheck} className="w-4 lg:w-5 h-4 lg:h-5 text-green-500" />
-                  <span className="text-sm lg:text-base text-gray-700">Brand awareness growth</span>
+                  <span className="text-sm lg:text-base text-gray-700">Review management</span>
                 </div>
                 <div className="flex items-center space-x-2">
                   <SafeIcon icon={FiCheck} className="w-4 lg:w-5 h-4 lg:h-5 text-green-500" />
-                  <span className="text-sm lg:text-base text-gray-700">Lead generation focus</span>
+                  <span className="text-sm lg:text-base text-gray-700">Local citations</span>
                 </div>
                 <div className="flex items-center space-x-2">
                   <SafeIcon icon={FiCheck} className="w-4 lg:w-5 h-4 lg:h-5 text-green-500" />
-                  <span className="text-sm lg:text-base text-gray-700">Creative ad design</span>
+                  <span className="text-sm lg:text-base text-gray-700">Maps ranking</span>
                 </div>
               </div>
               <div className="flex flex-col sm:flex-row gap-4">
@@ -133,14 +160,14 @@ const FacebookAdsCalgary = () => {
                   to="/contact"
                   className="bg-silahub-primary text-white px-6 lg:px-8 py-3 lg:py-4 rounded-lg font-semibold hover:bg-primary-800 transition-colors inline-flex items-center justify-center space-x-2"
                 >
-                  <span>Get Facebook Ads Strategy</span>
+                  <span>Get GMB Audit</span>
                   <SafeIcon icon={FiArrowRight} className="w-4 lg:w-5 h-4 lg:h-5" />
                 </Link>
                 <Link
                   to="/case-studies"
                   className="border-2 border-gray-300 text-gray-700 px-6 lg:px-8 py-3 lg:py-4 rounded-lg font-semibold hover:border-silahub-primary hover:text-silahub-primary transition-colors inline-flex items-center justify-center space-x-2"
                 >
-                  <span>View Social Media Results</span>
+                  <span>View GMB Results</span>
                 </Link>
               </div>
             </motion.div>
@@ -153,15 +180,15 @@ const FacebookAdsCalgary = () => {
               <div className="bg-white rounded-2xl shadow-2xl p-6 lg:p-8">
                 <div className="text-center mb-6">
                   <h3 className="text-xl lg:text-2xl font-bold text-gray-900 mb-2">
-                    Free Facebook Ads Consultation
+                    Free Google My Business Audit
                   </h3>
                   <p className="text-gray-600">
-                    Discover how to reach more Calgary customers
+                    See how to improve your local visibility
                   </p>
                 </div>
                 <LeadCaptureForm
-                  source="facebook-ads-calgary-page"
-                  ctaText="Get My Facebook Strategy"
+                  source="google-maps-seo-calgary-page"
+                  ctaText="Get My GMB Audit"
                   className="space-y-4"
                 />
               </div>
@@ -170,7 +197,7 @@ const FacebookAdsCalgary = () => {
         </div>
       </section>
 
-      {/* Facebook Ads Services */}
+      {/* Services */}
       <section className="py-16 lg:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -180,14 +207,14 @@ const FacebookAdsCalgary = () => {
             className="text-center mb-12 lg:mb-16"
           >
             <h2 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-4">
-              Complete Facebook Advertising Services
+              Complete Google My Business Services
             </h2>
             <p className="text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto">
-              From audience research to creative design, we handle every aspect of your Facebook and Instagram advertising to maximize your reach and lead generation in Calgary.
+              From profile optimization to review management, we handle every aspect of your Google My Business presence to maximize local visibility.
             </p>
           </motion.div>
           <div className="grid sm:grid-cols-2 gap-6 lg:gap-8">
-            {facebookAdsServices.map((service, index) => (
+            {gmbServices.map((service, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
@@ -223,8 +250,43 @@ const FacebookAdsCalgary = () => {
         </div>
       </section>
 
-      {/* FAQ Section */}
+      {/* Features */}
       <section className="py-16 lg:py-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-12 lg:mb-16"
+          >
+            <h2 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-4">
+              What's Included in Our GMB Optimization
+            </h2>
+          </motion.div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+            {gmbFeatures.map((item, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="bg-white rounded-xl p-6 shadow-lg"
+              >
+                <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                  {item.feature}
+                </h3>
+                <p className="text-gray-600 text-sm lg:text-base">
+                  {item.description}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="py-16 lg:py-20 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -233,7 +295,7 @@ const FacebookAdsCalgary = () => {
             className="text-center mb-12 lg:mb-16"
           >
             <h2 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-4">
-              Facebook Ads Frequently Asked Questions
+              Google Maps SEO Frequently Asked Questions
             </h2>
           </motion.div>
           <div className="space-y-6">
@@ -244,7 +306,7 @@ const FacebookAdsCalgary = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="bg-white rounded-xl p-6 shadow-lg"
+                className="bg-gray-50 rounded-xl p-6"
               >
                 <h3 className="text-lg font-semibold text-gray-900 mb-3">
                   {faq.question}
@@ -267,16 +329,16 @@ const FacebookAdsCalgary = () => {
             viewport={{ once: true }}
           >
             <h2 className="text-2xl lg:text-3xl font-bold text-white mb-6">
-              Ready to Reach More Calgary Customers?
+              Ready to Dominate Google Maps?
             </h2>
             <p className="text-lg lg:text-xl text-silahub-light mb-8">
-              Professional Facebook advertising that builds your brand and generates leads.
+              Professional Google My Business optimization that gets you found by local customers.
             </p>
             <Link
               to="/contact"
               className="bg-white text-silahub-primary px-6 lg:px-8 py-3 lg:py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors inline-flex items-center space-x-2"
             >
-              <span>Start Your Facebook Campaigns</span>
+              <span>Start GMB Optimization</span>
               <SafeIcon icon={FiArrowRight} className="w-4 lg:w-5 h-4 lg:h-5" />
             </Link>
           </motion.div>
@@ -286,4 +348,4 @@ const FacebookAdsCalgary = () => {
   );
 };
 
-export default FacebookAdsCalgary;
+export default GoogleMapsSEO;

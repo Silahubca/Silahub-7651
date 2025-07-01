@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import * as FiIcons from 'react-icons/fi';
 import SafeIcon from '../../common/SafeIcon';
 
-const { FiPlay, FiX, FiStar, FiMapPin } = FiIcons;
+const { FiPlay, FiX, FiStar, FiMapPin, FiFacebook, FiInstagram, FiLinkedin, FiYoutube, FiTwitter } = FiIcons;
 
 const VideoTestimonials = () => {
   const [activeVideo, setActiveVideo] = useState(null);
@@ -24,7 +24,7 @@ const VideoTestimonials = () => {
       id: 2,
       name: "Sarah Mitchell",
       company: "Elite HVAC Services",
-      location: "Calgary, AB", 
+      location: "Calgary, AB",
       thumbnail: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=300&h=200&fit=crop&crop=face",
       videoId: "dQw4w9WgXcQ",
       quote: "The ROI on our marketing spend has been incredible. We're booking months in advance now.",
@@ -41,6 +41,34 @@ const VideoTestimonials = () => {
       quote: "Our website conversion rate improved dramatically. We're the go-to cleaning service in Calgary now.",
       result: "250% Conversion Increase",
       rating: 5
+    }
+  ];
+
+  const socialLinks = [
+    {
+      name: 'Follow us on Facebook',
+      icon: FiFacebook,
+      url: 'https://www.facebook.com/silahubtechnologies'
+    },
+    {
+      name: 'Follow us on Instagram',
+      icon: FiInstagram,
+      url: 'https://www.instagram.com/silahubtechnologies'
+    },
+    {
+      name: 'Connect on LinkedIn',
+      icon: FiLinkedin,
+      url: 'https://www.linkedin.com/company/silahubtechnologies'
+    },
+    {
+      name: 'Subscribe on YouTube',
+      icon: FiYoutube,
+      url: 'https://www.youtube.com/@silahubtechnologies'
+    },
+    {
+      name: 'Follow on X',
+      icon: FiTwitter,
+      url: 'https://x.com/silahubtech'
     }
   ];
 
@@ -65,7 +93,7 @@ const VideoTestimonials = () => {
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-3 gap-8 mb-12">
           {testimonials.map((testimonial, index) => (
             <motion.div
               key={testimonial.id}
@@ -120,6 +148,52 @@ const VideoTestimonials = () => {
             </motion.div>
           ))}
         </div>
+
+        {/* Social Media Call to Action */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center"
+        >
+          <div className="bg-gray-50 rounded-2xl p-8">
+            <h3 className="text-2xl font-bold text-gray-900 mb-4">
+              Stay Connected with Silahub
+            </h3>
+            <p className="text-gray-600 mb-6">
+              Follow us on social media for the latest digital marketing tips, success stories, and industry insights.
+            </p>
+            <div className="flex justify-center space-x-4">
+              {socialLinks.map((social) => (
+                <a
+                  key={social.name}
+                  href={social.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-white p-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 group"
+                  aria-label={social.name}
+                >
+                  <SafeIcon 
+                    icon={social.icon} 
+                    className="w-6 h-6 text-gray-600 group-hover:text-silahub-primary transition-colors" 
+                  />
+                </a>
+              ))}
+              {/* TikTok Link */}
+              <a
+                href="https://www.tiktok.com/@silahub.technolog"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-white p-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 group"
+                aria-label="Follow us on TikTok"
+              >
+                <span className="text-gray-600 group-hover:text-silahub-primary transition-colors font-bold text-lg">
+                  TT
+                </span>
+              </a>
+            </div>
+          </div>
+        </motion.div>
 
         {/* Video Modal */}
         {activeVideo && (

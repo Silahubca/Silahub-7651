@@ -9,7 +9,7 @@ const { FiArrowRight, FiPhone, FiMail, FiClock } = FiIcons;
 
 const CTASection = () => {
   return (
-    <section className="py-20 bg-gradient-to-r from-silahub-primary to-primary-800">
+    <section className="py-20 bg-silahub-primary">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Column - Content */}
@@ -22,60 +22,59 @@ const CTASection = () => {
             <h2 className="text-4xl font-bold mb-6">
               Ready to Transform Your Business?
             </h2>
-            <p className="text-xl text-silahub-light mb-8 leading-relaxed">
-              Join hundreds of successful home service businesses that have grown their revenue 
-              with our proven digital marketing strategies. Get your free marketing audit today.
+            <p className="text-xl text-silahub-secondary mb-8 leading-relaxed">
+              Join hundreds of successful home service businesses that have grown their revenue with our proven digital marketing strategies. Get your free marketing audit today.
             </p>
 
             {/* Features List */}
             <div className="space-y-4 mb-8">
               <div className="flex items-center space-x-3">
-                <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center">
+                <div className="w-6 h-6 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
                   <div className="w-2 h-2 bg-white rounded-full"></div>
                 </div>
-                <span className="text-silahub-light">Free comprehensive marketing audit</span>
+                <span className="text-silahub-secondary">Free comprehensive marketing audit</span>
               </div>
               <div className="flex items-center space-x-3">
-                <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center">
+                <div className="w-6 h-6 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
                   <div className="w-2 h-2 bg-white rounded-full"></div>
                 </div>
-                <span className="text-silahub-light">Custom strategy for your business</span>
+                <span className="text-silahub-secondary">Custom strategy for your business</span>
               </div>
               <div className="flex items-center space-x-3">
-                <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center">
+                <div className="w-6 h-6 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
                   <div className="w-2 h-2 bg-white rounded-full"></div>
                 </div>
-                <span className="text-silahub-light">No long-term contracts required</span>
+                <span className="text-silahub-secondary">No long-term contracts required</span>
               </div>
             </div>
 
             {/* Contact Options */}
             <div className="space-y-4">
               <div className="flex items-center space-x-4">
-                <div className="bg-white/20 p-3 rounded-lg">
+                <div className="bg-white bg-opacity-20 p-3 rounded-lg">
                   <SafeIcon icon={FiPhone} className="w-6 h-6 text-white" />
                 </div>
                 <div>
                   <div className="font-semibold">Call us directly</div>
-                  <div className="text-silahub-light">825-288-8332</div>
+                  <div className="text-silahub-secondary">825-288-8332</div>
                 </div>
               </div>
               <div className="flex items-center space-x-4">
-                <div className="bg-white/20 p-3 rounded-lg">
+                <div className="bg-white bg-opacity-20 p-3 rounded-lg">
                   <SafeIcon icon={FiMail} className="w-6 h-6 text-white" />
                 </div>
                 <div>
                   <div className="font-semibold">Email us anytime</div>
-                  <div className="text-silahub-light">hello@silahub.com</div>
+                  <div className="text-silahub-secondary">hello@silahub.com</div>
                 </div>
               </div>
               <div className="flex items-center space-x-4">
-                <div className="bg-white/20 p-3 rounded-lg">
+                <div className="bg-white bg-opacity-20 p-3 rounded-lg">
                   <SafeIcon icon={FiClock} className="w-6 h-6 text-white" />
                 </div>
                 <div>
                   <div className="font-semibold">Response time</div>
-                  <div className="text-silahub-light">Within 24 hours guaranteed</div>
+                  <div className="text-silahub-secondary">Within 24 hours guaranteed</div>
                 </div>
               </div>
             </div>
@@ -97,18 +96,15 @@ const CTASection = () => {
                   Discover untapped opportunities to grow your business
                 </p>
               </div>
-
-              <LeadCaptureForm 
+              <LeadCaptureForm
                 source="cta-section"
                 ctaText="Get My Free Audit Now"
                 className="space-y-4"
               />
-
               <div className="mt-6 text-center">
                 <p className="text-xs text-gray-500 mb-4">
                   No spam. We respect your privacy. Unsubscribe at any time.
                 </p>
-                
                 {/* Trust Badges */}
                 <div className="flex justify-center items-center space-x-4 text-xs text-gray-400">
                   <span>✓ 500+ Happy Clients</span>

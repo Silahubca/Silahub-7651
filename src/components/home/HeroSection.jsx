@@ -11,12 +11,12 @@ const HeroSection = () => {
   const [showVideo, setShowVideo] = useState(false);
 
   return (
-    <section className="relative bg-gradient-to-br from-silahub-light via-white to-silahub-secondary overflow-hidden">
-      {/* Background Elements */}
+    <section className="relative bg-white overflow-hidden">
+      {/* Background Pattern */}
       <div className="absolute inset-0">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-silahub-secondary rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
-        <div className="absolute top-40 right-10 w-72 h-72 bg-silahub-light rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
-        <div className="absolute -bottom-8 left-20 w-72 h-72 bg-silahub-secondary rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
+        <div className="absolute top-20 left-10 w-72 h-72 bg-silahub-secondary rounded-full opacity-20 animate-blob"></div>
+        <div className="absolute top-40 right-10 w-72 h-72 bg-silahub-light rounded-full opacity-30 animate-blob animation-delay-2000"></div>
+        <div className="absolute -bottom-8 left-20 w-72 h-72 bg-silahub-secondary rounded-full opacity-20 animate-blob animation-delay-4000"></div>
       </div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
@@ -47,14 +47,11 @@ const HeroSection = () => {
             >
               <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 leading-tight">
                 Grow Your
-                <span className="bg-gradient-to-r from-silahub-primary to-primary-700 bg-clip-text text-transparent">
-                  {' '}Home Service{' '}
-                </span>
+                <span className="text-silahub-primary"> Home Service </span>
                 Business Online
               </h1>
               <p className="mt-6 text-xl text-gray-600 leading-relaxed">
-                We help contractors and home service businesses in Calgary dominate their local market 
-                with proven digital marketing strategies that generate qualified leads and increase revenue.
+                We help contractors and home service businesses in Calgary dominate their local market with proven digital marketing strategies that generate qualified leads and increase revenue.
               </p>
             </motion.div>
 
@@ -136,13 +133,11 @@ const HeroSection = () => {
                   Discover how to 3x your leads in the next 90 days
                 </p>
               </div>
-
-              <LeadCaptureForm 
+              <LeadCaptureForm
                 source="hero"
                 ctaText="Get My Free Audit"
                 className="space-y-4"
               />
-
               <div className="mt-6 text-center">
                 <p className="text-xs text-gray-500">
                   No spam. We respect your privacy. Unsubscribe at any time.

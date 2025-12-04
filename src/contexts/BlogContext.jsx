@@ -32,19 +32,23 @@ export const BlogProvider = ({ children }) => {
     const newPost = {
       id: Date.now().toString(),
       ...postData,
-      publishDate: postData.publishDate || new Date().toISOString(),
-      slug: postData.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, ''),
+      slug: postData.slug || postData.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, ''), // Use provided slug or generate
       createdAt: new Date().toISOString()
     };
-    
+
     setPosts(prev => [newPost, ...prev]);
     return newPost;
   };
 
   const updatePost = (postId, updates) => {
-    setPosts(prev => prev.map(post => 
-      post.id === postId 
-        ? { ...post, ...updates, updatedAt: new Date().toISOString() }
+    setPosts(prev => prev.map(post =>
+      post.id === postId
+        ? {
+            ...post,
+            ...updates,
+            slug: updates.slug || post.slug, // Use provided slug or keep existing
+            updatedAt: new Date().toISOString()
+          }
         : post
     ));
   };

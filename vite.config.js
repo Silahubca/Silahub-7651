@@ -21,12 +21,12 @@ export default defineConfig({
           const info = assetInfo.name.split('.');
           const extType = info[info.length - 1];
           if (/png|jpe?g|svg|gif|tiff|bmp|ico/i.test(extType)) {
-            return `assets/images/[name]-[hash].[ext]`;
+            return `assets/images/[name]-[hash].[ext]`
           }
           if (/css/i.test(extType)) {
-            return `assets/css/[name]-[hash].[ext]`;
+            return `assets/css/[name]-[hash].[ext]`
           }
-          return `assets/[name]-[hash].[ext]`;
+          return `assets/[name]-[hash].[ext]`
         },
         manualChunks: {
           vendor: ['react', 'react-dom'],
@@ -44,7 +44,7 @@ export default defineConfig({
     // Optimize chunk size
     chunkSizeWarningLimit: 1000
   },
-  // Use hash router base for better compatibility
+  // Use relative base for better cPanel compatibility
   base: './',
   // Development server
   server: {

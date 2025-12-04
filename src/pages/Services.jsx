@@ -8,13 +8,63 @@ import LeadCaptureForm from '../components/leads/LeadCaptureForm';
 const { FiSearch, FiTarget, FiFacebook, FiUsers, FiMonitor, FiStar, FiEdit3, FiArrowRight, FiCheck, FiHeart, FiMapPin, FiShield } = FiIcons;
 
 const Services = () => {
-  // Set page title and meta description
+  // Set page title and SEO meta tags
   React.useEffect(() => {
-    document.title = 'Digital Marketing Services Calgary | SEO, Google Ads, Web Design - Silahub';
+    document.title = 'Digital Marketing Services Calgary | SEO, Google Ads, Web Design - Silahub Technologies';
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
-      metaDescription.setAttribute('content', 'Complete digital marketing services for Calgary home service businesses. Expert SEO, Google Ads, Facebook Ads, website design, content marketing and reputation management.');
+      metaDescription.setAttribute('content', 'Complete digital marketing services for Calgary home service businesses. Expert SEO, Google Ads, Facebook Ads, website design, content marketing, and reputation management.');
     }
+
+    // Add Open Graph tags
+    const addMetaTag = (property, content) => {
+      let meta = document.querySelector(`meta[property="${property}"]`) || document.querySelector(`meta[name="${property}"]`);
+      if (!meta) {
+        meta = document.createElement('meta');
+        meta.setAttribute(property.startsWith('og:') ? 'property' : 'name', property);
+        document.head.appendChild(meta);
+      }
+      meta.setAttribute('content', content);
+    };
+
+    addMetaTag('og:title', 'Digital Marketing Services Calgary | Silahub Technologies');
+    addMetaTag('og:description', 'Complete digital marketing services for Calgary home service businesses.');
+    addMetaTag('og:type', 'website');
+    addMetaTag('og:url', 'https://silahub.com/services');
+
+    // Structured data for services page
+    const structuredData = {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "name": "Digital Marketing Services Calgary",
+      "description": "Complete digital marketing services for home service businesses in Calgary",
+      "provider": {
+        "@type": "Organization",
+        "name": "Silahub Technologies"
+      },
+      "areaServed": {
+        "@type": "Place",
+        "name": "Calgary, Alberta"
+      },
+      "serviceType": [
+        "SEO Services",
+        "Google Ads Management",
+        "Facebook Advertising",
+        "Social Media Management",
+        "Website Design",
+        "Content Marketing",
+        "Reputation Management",
+        "Branding Services"
+      ]
+    };
+
+    let script = document.querySelector('script[type="application/ld+json"]');
+    if (!script) {
+      script = document.createElement('script');
+      script.type = 'application/ld+json';
+      document.head.appendChild(script);
+    }
+    script.textContent = JSON.stringify(structuredData);
   }, []);
 
   const services = [
@@ -244,25 +294,23 @@ const Services = () => {
     <>
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-primary-50 to-secondary-50 py-12 sm:py-16 lg:py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12 lg:mb-16">
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6"
-            >
-              Digital Marketing Services for{' '}
-              <span className="text-primary-600">Home Service Businesses</span>
-            </motion.h1>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              className="text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto"
-            >
-              We specialize in helping contractors and home service businesses in Calgary dominate their local market with proven digital marketing strategies that generate qualified leads and increase revenue.
-            </motion.p>
-          </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight mb-6"
+          >
+            Digital Marketing Services for{' '}
+            <span className="text-primary-600">Home Service Businesses</span>
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto"
+          >
+            We specialize in helping contractors and home service businesses in Calgary dominate their local market with proven digital marketing strategies that generate qualified leads and increase revenue.
+          </motion.p>
         </div>
       </section>
 
@@ -315,14 +363,13 @@ const Services = () => {
                         <SafeIcon icon={FiArrowRight} className="w-4 lg:w-5 h-4 lg:h-5" />
                       </Link>
                       <Link
-                        to="/contact"
+                        to="/contact-us"
                         className="border border-primary-600 text-primary-600 px-4 lg:px-6 py-2 lg:py-3 rounded-lg font-semibold hover:bg-primary-50 transition-colors text-center"
                       >
                         Get Quote
                       </Link>
                     </div>
                   </div>
-
                   {/* Benefits */}
                   <div className="bg-gray-50 p-6 lg:p-12 flex flex-col justify-center">
                     <h3 className="text-xl lg:text-2xl font-bold text-gray-900 mb-6">Key Benefits</h3>
@@ -359,11 +406,7 @@ const Services = () => {
               Get a free marketing audit and custom strategy for your home service business.
             </p>
             <div className="bg-white rounded-2xl p-6 lg:p-8 max-w-md mx-auto">
-              <LeadCaptureForm
-                source="services-page"
-                ctaText="Get My Free Audit"
-                className="space-y-4"
-              />
+              <LeadCaptureForm source="services-page" ctaText="Get My Free Audit" className="space-y-4" />
             </div>
           </motion.div>
         </div>

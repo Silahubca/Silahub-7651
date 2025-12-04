@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { HashRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 
 // Components
@@ -21,6 +21,7 @@ import AdminDashboard from './pages/admin/AdminDashboard';
 import BlogManager from './pages/admin/BlogManager';
 import SEOManager from './pages/admin/SEOManager';
 import LeadManager from './pages/admin/LeadManager';
+import ImportWizard from './pages/admin/ImportWizard';
 
 // Service Pages
 import SEOCalgary from './pages/services/SEOCalgary';
@@ -33,6 +34,15 @@ import ReputationManagementCalgary from './pages/services/ReputationManagementCa
 import BrandingService from './pages/services/BrandingService';
 import GoogleMapsSEO from './pages/services/GoogleMapsSEO';
 import GoogleLocalServiceAds from './pages/services/GoogleLocalServiceAds';
+
+// Landing Pages
+import HVACMarketingBlueprint from './pages/landing/HVACMarketingBlueprint';
+import PlumbingMarketingBlueprint from './pages/landing/PlumbingMarketingBlueprint';
+import ElectricalMarketingBlueprint from './pages/landing/ElectricalMarketingBlueprint';
+import CleaningServiceGrowthBlueprint from './pages/landing/CleaningServiceGrowthBlueprint';
+import LandscapingGrowthBlueprint from './pages/landing/LandscapingGrowthBlueprint';
+import RoofingGrowthBlueprint from './pages/landing/RoofingGrowthBlueprint';
+import HomeServiceGrowthBlueprint from './pages/landing/HomeServiceGrowthBlueprint';
 
 // Contexts
 import { LeadProvider } from './contexts/LeadContext';
@@ -65,11 +75,11 @@ function App() {
                   <Route path="/pricing" element={<Pricing />} />
                   <Route path="/case-studies" element={<CaseStudies />} />
                   <Route path="/portfolio" element={<Portfolio />} />
-                  <Route path="/about" element={<About />} />
-                  <Route path="/contact" element={<Contact />} />
+                  <Route path="/about-us" element={<About />} />
+                  <Route path="/contact-us" element={<Contact />} />
                   <Route path="/blog" element={<Blog />} />
                   <Route path="/blog/:slug" element={<BlogPost />} />
-                  
+
                   {/* Service Pages */}
                   <Route path="/services/seo-calgary" element={<SEOCalgary />} />
                   <Route path="/services/google-ads-calgary" element={<GoogleAdsCalgary />} />
@@ -81,18 +91,27 @@ function App() {
                   <Route path="/services/branding-service" element={<BrandingService />} />
                   <Route path="/services/google-maps-seo" element={<GoogleMapsSEO />} />
                   <Route path="/services/google-local-service-ads" element={<GoogleLocalServiceAds />} />
-                  
+
+                  {/* Landing Pages */}
+                  <Route path="/hvac-marketing-blueprint" element={<HVACMarketingBlueprint />} />
+                  <Route path="/plumbing-marketing-blueprint" element={<PlumbingMarketingBlueprint />} />
+                  <Route path="/electrical-marketing-blueprint" element={<ElectricalMarketingBlueprint />} />
+                  <Route path="/cleaning-service-growth-blueprint" element={<CleaningServiceGrowthBlueprint />} />
+                  <Route path="/landscaping-growth-blueprint" element={<LandscapingGrowthBlueprint />} />
+                  <Route path="/roofing-growth-blueprint" element={<RoofingGrowthBlueprint />} />
+                  <Route path="/home-service-growth-blueprint" element={<HomeServiceGrowthBlueprint />} />
+
                   {/* Admin Pages */}
                   <Route path="/admin" element={<AdminDashboard />} />
                   <Route path="/admin/blog" element={<BlogManager />} />
                   <Route path="/admin/seo" element={<SEOManager />} />
                   <Route path="/admin/leads" element={<LeadManager />} />
+                  <Route path="/admin/import" element={<ImportWizard />} />
                 </Routes>
               </main>
               <Footer />
-              
               {/* Toast Notifications */}
-              <Toaster 
+              <Toaster
                 position="top-right"
                 toastOptions={{
                   duration: 4000,

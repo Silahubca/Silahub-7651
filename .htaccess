@@ -1,51 +1,171 @@
-# Apache configuration for React app with CSP fix
+# 🚨 ENHANCED cPanel Apache Configuration for React SPA
+# This file specifically addresses JavaScript MIME type issues
+
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
-  
-  # Handle client-side routing
+
+  # Handle client-side routing - CRITICAL for React Router
   RewriteRule ^index\.html$ - [L]
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_URI} !^/api/
   RewriteRule . /index.html [L]
 </IfModule>
 
-# MIME types
-AddType application/javascript .js
-AddType text/css .css
-AddType application/json .json
+# 🚨 MIME TYPE CONFIGURATION - CRITICAL FOR JAVASCRIPT MODULES
+<IfModule mod_mime.c>
+  # Clear any existing type definitions first
+  RemoveType .js
+  RemoveType .mjs
+  RemoveType .css
 
-# Content Security Policy - Allow unsafe-eval for Vite/React
-<IfModule mod_headers.c>
-  # CSP that allows Vite's development features
-  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline' https: data:; img-src 'self' data: https: blob:; font-src 'self' https: data:; connect-src 'self' https: wss: ws:; media-src 'self' https: data:; object-src 'none'; frame-src 'self' https:; worker-src 'self' blob:; child-src 'self' blob:; manifest-src 'self';"
-  
-  # Security headers
-  Header always set X-Content-Type-Options nosniff
-  Header always set X-Frame-Options DENY
-  Header always set X-XSS-Protection "1; mode=block"
-  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  # JavaScript files - Multiple declarations for maximum compatibility
+  AddType text/javascript .js
+  AddType application/javascript .js
+  AddType text/javascript .mjs
+  AddType application/javascript .mjs
+
+  # CSS files
+  AddType text/css .css
+
+  # JSON files
+  AddType application/json .json
+
+  # WebAssembly files
+  AddType application/wasm .wasm
+
+  # Images
+  AddType image/svg+xml .svg
+  AddType image/png .png
+  AddType image/jpg .jpg
+  AddType image/jpeg .jpeg
+  AddType image/gif .gif
+  AddType image/webp .webp
+
+  # Fonts
+  AddType font/woff2 .woff2
+  AddType font/woff .woff
+  AddType font/ttf .ttf
 </IfModule>
 
-# Gzip compression
+# 🚨 FORCE CORRECT MIME TYPES - ESSENTIAL FOR MODULE SCRIPTS
+<FilesMatch "\.(js|mjs)$">
+  # Force JavaScript MIME type - this overrides server defaults
+  ForceType text/javascript
+
+  # Alternative approach if ForceType doesn't work
+  <IfModule mod_headers.c>
+    Header set Content-Type "text/javascript"
+    Header unset Content-Type
+    Header set Content-Type "text/javascript"
+  </IfModule>
+</FilesMatch>
+
+<FilesMatch "\.css$">
+  ForceType text/css
+</FilesMatch>
+
+<FilesMatch "\.wasm$">
+  ForceType application/wasm
+</FilesMatch>
+
+# 🚨 ADDITIONAL MIME TYPE ENFORCEMENT
+<IfModule mod_headers.c>
+  # Force correct content types in headers
+  <FilesMatch "\.(js|mjs)$">
+    Header always set Content-Type "text/javascript"
+    Header always set X-Content-Type-Options nosniff
+  </FilesMatch>
+
+  <FilesMatch "\.css$">
+    Header always set Content-Type "text/css"
+  </FilesMatch>
+
+  # Security headers
+  Header always set X-Frame-Options SAMEORIGIN
+  Header always set X-XSS-Protection "1; mode=block"
+
+  # CORS headers for assets
+  Header always set Access-Control-Allow-Origin "*"
+  Header always set Access-Control-Allow-Methods "GET, POST, OPTIONS"
+  Header always set Access-Control-Allow-Headers "Content-Type, Authorization"
+
+  # Content Security Policy - Permissive for React/Vite
+  Header always set Content-Security-Policy "default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: https:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https: blob:; font-src 'self' https: data:; connect-src 'self' https: wss: ws:; media-src 'self' https: data:; object-src 'none'; frame-src 'self' https:; worker-src 'self' blob:; child-src 'self' blob:; manifest-src 'self';"
+
+</IfModule>
+
+# 🚨 CHARACTER ENCODING
+AddDefaultCharset UTF-8
+
+# 🚨 GZIP COMPRESSION
 <IfModule mod_deflate.c>
   AddOutputFilterByType DEFLATE text/plain
   AddOutputFilterByType DEFLATE text/html
   AddOutputFilterByType DEFLATE text/xml
   AddOutputFilterByType DEFLATE text/css
+  AddOutputFilterByType DEFLATE text/javascript
+  AddOutputFilterByType DEFLATE application/javascript
   AddOutputFilterByType DEFLATE application/xml
   AddOutputFilterByType DEFLATE application/xhtml+xml
   AddOutputFilterByType DEFLATE application/rss+xml
-  AddOutputFilterByType DEFLATE application/javascript
-  AddOutputFilterByType DEFLATE application/x-javascript
+  AddOutputFilterByType DEFLATE application/json
 </IfModule>
 
-# Cache static files
+# 🚨 CACHE CONTROL
 <IfModule mod_expires.c>
   ExpiresActive on
+
+  # Static assets - cache for 1 year
   ExpiresByType text/css "access plus 1 year"
+  ExpiresByType text/javascript "access plus 1 year"
   ExpiresByType application/javascript "access plus 1 year"
   ExpiresByType image/png "access plus 1 year"
   ExpiresByType image/jpg "access plus 1 year"
   ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+
+  # HTML - don't cache
+  ExpiresByType text/html "access plus 0 seconds"
+
+  # JSON data - short cache
+  ExpiresByType application/json "access plus 1 hour"
 </IfModule>
+
+# 🚨 ERROR HANDLING
+ErrorDocument 404 /index.html
+ErrorDocument 500 /index.html
+
+# 🚨 PROTECTION AGAINST ACCESSING SENSITIVE FILES
+<Files ".htaccess">
+  Require all denied
+</Files>
+
+<Files "composer.json">
+  Require all denied
+</Files>
+
+<Files "package.json">
+  Require all denied
+</Files>
+
+<Files "*.lock">
+  Require all denied
+</Files>
+
+<Files "*.log">
+  Require all denied
+</Files>
+
+# 🚨 BLOCK ACCESS TO HIDDEN FILES
+<FilesMatch "^\.">
+  Require all denied
+</FilesMatch>
+
+# 🚨 BLOCK ACCESS TO BACKUP AND CONFIG FILES
+<FilesMatch "\.(bak|backup|conf|dist|fla|inc|ini|log|psd|sh|sql|sw[op])$">
+  Require all denied
+</FilesMatch>

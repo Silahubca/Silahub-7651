@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import HeroSection from '../components/home/HeroSection';
 import ServicesOverview from '../components/home/ServicesOverview';
 import InteractiveROICalculator from '../components/home/InteractiveROICalculator';
@@ -12,22 +12,24 @@ import CTASection from '../components/home/CTASection';
 import LeadMagnetModal from '../components/leads/LeadMagnetModal';
 import LiveChatWidget from '../components/home/LiveChatWidget';
 import LiveResultsFeed from '../components/home/LiveResultsFeed';
+import GrowthBlueprintsSection from '../components/home/GrowthBlueprintsSection';
 
-const Home = () => {
-  // Set page title
-  React.useEffect(() => {
-    document.title = 'Silahub Technologies - Digital Marketing Agency Calgary | SEO, Google Ads, Web Design';
-    const metaDescription = document.querySelector('meta[name="description"]');
+const Home=()=> {
+  // Set page title and SEO meta tags
+  useEffect(()=> {
+    document.title='Silahub Technologies - Digital Marketing Agency Calgary | SEO,Google Ads,Web Design';
+    const metaDescription=document.querySelector('meta[name="description"]');
     if (metaDescription) {
-      metaDescription.setAttribute('content', 'Calgary\'s premier digital marketing agency for home service businesses. Expert SEO, Google Ads, Facebook Ads, website design & more. Get your free consultation today!');
+      metaDescription.setAttribute('content','Calgary\'s premier digital marketing agency for home service businesses. Expert SEO,Google Ads,Facebook Ads,website design & more. Get your free consultation today!');
     }
-  }, []);
+  },[]);
 
   return (
     <>
       <HeroSection />
-      <InteractiveROICalculator />
       <ServicesOverview />
+      <GrowthBlueprintsSection />
+      <InteractiveROICalculator />
       <StatsSection />
       <BeforeAfterShowcase />
       <VideoTestimonials />

@@ -11,24 +11,20 @@ import TestimonialsSection from '../components/home/TestimonialsSection';
 import CTASection from '../components/home/CTASection';
 import LeadMagnetModal from '../components/leads/LeadMagnetModal';
 import LiveChatWidget from '../components/home/LiveChatWidget';
-import LiveResultsFeed from '../components/home/LiveResultsFeed';
-import GrowthBlueprintsSection from '../components/home/GrowthBlueprintsSection';
 
-const Home=()=> {
+const Home=()=>{
   // Set page title and SEO meta tags
-  useEffect(()=> {
+  useEffect(()=>{
     document.title='Silahub Technologies - Digital Marketing Agency Calgary | SEO,Google Ads,Web Design';
     const metaDescription=document.querySelector('meta[name="description"]');
     if (metaDescription) {
       metaDescription.setAttribute('content','Calgary\'s premier digital marketing agency for home service businesses. Expert SEO,Google Ads,Facebook Ads,website design & more. Get your free consultation today!');
     }
   },[]);
-
   return (
     <>
       <HeroSection />
       <ServicesOverview />
-      <GrowthBlueprintsSection />
       <InteractiveROICalculator />
       <StatsSection />
       <BeforeAfterShowcase />
@@ -39,9 +35,7 @@ const Home=()=> {
       <CTASection />
       <LeadMagnetModal />
       <LiveChatWidget />
-      <LiveResultsFeed />
     </>
   );
 };
-
 export default Home;

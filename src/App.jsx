@@ -22,13 +22,6 @@ const Contact = lazy(() => import('./pages/Contact'));
 const Blog = lazy(() => import('./pages/Blog'));
 const BlogPost = lazy(() => import('./pages/BlogPost'));
 
-// Lazy load admin pages
-const AdminDashboard = lazy(() => import('./pages/admin/AdminDashboard'));
-const BlogManager = lazy(() => import('./pages/admin/BlogManager'));
-const SEOManager = lazy(() => import('./pages/admin/SEOManager'));
-const LeadManager = lazy(() => import('./pages/admin/LeadManager'));
-const ImportWizard = lazy(() => import('./pages/admin/ImportWizard'));
-
 // Lazy load service pages
 const SEOCalgary = lazy(() => import('./pages/services/SEOCalgary'));
 const GoogleAdsCalgary = lazy(() => import('./pages/services/GoogleAdsCalgary'));
@@ -41,6 +34,10 @@ const BrandingService = lazy(() => import('./pages/services/BrandingService'));
 const GoogleMapsSEO = lazy(() => import('./pages/services/GoogleMapsSEO'));
 const GoogleLocalServiceAds = lazy(() => import('./pages/services/GoogleLocalServiceAds'));
 
+// Lazy load legal pages
+const Privacy = lazy(() => import('./pages/Privacy'));
+const Terms = lazy(() => import('./pages/Terms'));
+
 // Lazy load landing pages
 const HVACMarketingBlueprint = lazy(() => import('./pages/landing/HVACMarketingBlueprint'));
 const PlumbingMarketingBlueprint = lazy(() => import('./pages/landing/PlumbingMarketingBlueprint'));
@@ -49,6 +46,13 @@ const CleaningServiceGrowthBlueprint = lazy(() => import('./pages/landing/Cleani
 const LandscapingGrowthBlueprint = lazy(() => import('./pages/landing/LandscapingGrowthBlueprint'));
 const RoofingGrowthBlueprint = lazy(() => import('./pages/landing/RoofingGrowthBlueprint'));
 const HomeServiceGrowthBlueprint = lazy(() => import('./pages/landing/HomeServiceGrowthBlueprint'));
+
+// Lazy load admin pages
+const AdminDashboard = lazy(() => import('./pages/admin/AdminDashboard'));
+const BlogManager = lazy(() => import('./pages/admin/BlogManager'));
+const SEOManager = lazy(() => import('./pages/admin/SEOManager'));
+const LeadManager = lazy(() => import('./pages/admin/LeadManager'));
+const ImportWizard = lazy(() => import('./pages/admin/ImportWizard'));
 
 // Contexts
 import { LeadProvider } from './contexts/LeadContext';
@@ -59,7 +63,7 @@ function App() {
   useEffect(() => {
     // Initialize any necessary app-level functionality
     console.log('Silahub Technologies App loaded successfully');
-
+    
     // Set initial theme/design preferences
     document.documentElement.style.setProperty('--primary-color', '#4B154B');
     document.documentElement.style.setProperty('--secondary-color', '#EFCECF');
@@ -80,7 +84,7 @@ function App() {
       };
       preloadImage('https://quest-media-storage-bucket.s3.us-east-2.amazonaws.com/1751267972532-Silahub%20Technologies%20-%20Wordmark.png');
     };
-
+    
     preloadCriticalResources();
   }, []);
 
@@ -128,6 +132,10 @@ function App() {
                       <Route path="/services/google-maps-seo" element={<LazyWrapper><GoogleMapsSEO /></LazyWrapper>} />
                       <Route path="/services/google-local-service-ads" element={<LazyWrapper><GoogleLocalServiceAds /></LazyWrapper>} />
 
+                      {/* Legal Pages - Corrected URLs */}
+                      <Route path="/privacy-policy" element={<LazyWrapper><Privacy /></LazyWrapper>} />
+                      <Route path="/terms-and-condition" element={<LazyWrapper><Terms /></LazyWrapper>} />
+
                       {/* Landing Pages */}
                       <Route path="/hvac-marketing-blueprint" element={<LazyWrapper><HVACMarketingBlueprint /></LazyWrapper>} />
                       <Route path="/plumbing-marketing-blueprint" element={<LazyWrapper><PlumbingMarketingBlueprint /></LazyWrapper>} />
@@ -147,10 +155,9 @@ function App() {
                   </Suspense>
                 </main>
                 <Footer />
-
                 {/* Toast Notifications */}
-                <Toaster
-                  position="top-right"
+                <Toaster 
+                  position="top-right" 
                   toastOptions={{
                     duration: 4000,
                     style: {
@@ -167,7 +174,7 @@ function App() {
                         secondary: '#4B154B',
                       },
                     },
-                  }}
+                  }} 
                 />
               </div>
             </Router>

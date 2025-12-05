@@ -7,7 +7,7 @@ import { useLead } from '../../contexts/LeadContext';
 import { useBlog } from '../../contexts/BlogContext';
 import { useSEO } from '../../contexts/SEOContext';
 
-const { FiUsers, FiFileText, FiTrendingUp, FiSettings, FiBarChart3, FiTarget, FiLogOut, FiUpload } = FiIcons;
+const { FiUsers, FiFileText, FiTrendingUp, FiSettings, FiBarChart3, FiTarget, FiLogOut, FiUpload, FiDownload } = FiIcons;
 
 const AdminDashboard = () => {
   const { getLeadStats } = useLead();
@@ -29,7 +29,8 @@ const AdminDashboard = () => {
     { title: 'Manage Leads', description: 'View and manage all leads', icon: FiUsers, link: '/admin/leads', color: 'bg-blue-50 text-blue-600 border-blue-200' },
     { title: 'Blog Manager', description: 'Create and edit blog posts', icon: FiFileText, link: '/admin/blog', color: 'bg-green-50 text-green-600 border-green-200' },
     { title: 'SEO Manager', description: 'Manage SEO settings', icon: FiTrendingUp, link: '/admin/seo', color: 'bg-purple-50 text-purple-600 border-purple-200' },
-    { title: 'Import from WordPress', description: 'Migrate your existing blog content', icon: FiUpload, link: '/admin/import', color: 'bg-orange-50 text-orange-600 border-orange-200' }
+    { title: 'Import from WordPress', description: 'Migrate your existing blog content', icon: FiUpload, link: '/admin/import', color: 'bg-orange-50 text-orange-600 border-orange-200' },
+    { title: 'PDF Finder', description: 'Find and download generated PDFs', icon: FiDownload, link: '/admin/pdfs', color: 'bg-red-50 text-red-600 border-red-200' }
   ];
 
   const handleLogout = () => {
@@ -50,10 +51,7 @@ const AdminDashboard = () => {
               <h1 className="text-2xl font-bold text-gray-900">Silahub CMS Dashboard</h1>
               <p className="text-gray-600">Welcome back! Here's your content overview.</p>
             </div>
-            <button
-              onClick={handleLogout}
-              className="bg-red-50 text-red-600 px-4 py-2 rounded-lg hover:bg-red-100 transition-colors inline-flex items-center space-x-2"
-            >
+            <button onClick={handleLogout} className="bg-red-50 text-red-600 px-4 py-2 rounded-lg hover:bg-red-100 transition-colors inline-flex items-center space-x-2">
               <SafeIcon icon={FiLogOut} className="w-4 h-4" />
               <span>Logout</span>
             </button>
@@ -65,12 +63,7 @@ const AdminDashboard = () => {
         {/* Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           {dashboardStats.map((stat, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
-            >
+            <motion.div key={index} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.1 }}>
               <Link to={stat.link} className="block bg-white rounded-xl shadow-sm p-6 border border-gray-200 hover:shadow-md transition-shadow">
                 <div className="flex items-center justify-between">
                   <div>
@@ -90,14 +83,9 @@ const AdminDashboard = () => {
         {/* Quick Actions */}
         <div className="mb-8">
           <h2 className="text-xl font-bold text-gray-900 mb-4">Quick Actions</h2>
-          <div className="grid md:grid-cols-4 gap-6">
+          <div className="grid md:grid-cols-5 gap-6">
             {quickActions.map((action, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-              >
+              <motion.div key={index} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.1 }}>
                 <Link to={action.link} className={`block p-6 rounded-xl border-2 hover:shadow-md transition-all ${action.color}`}>
                   <SafeIcon icon={action.icon} className="w-8 h-8 mb-3" />
                   <h3 className="text-lg font-semibold mb-2">{action.title}</h3>
@@ -144,19 +132,19 @@ const AdminDashboard = () => {
 
         {/* Migration Helper */}
         <div className="mt-8 bg-blue-50 border border-blue-200 rounded-xl p-6">
-          <h3 className="text-lg font-semibold text-blue-900 mb-3">Migrate Existing Blog Content</h3>
+          <h3 className="text-lg font-semibold text-blue-900 mb-3">Need Help with PDFs?</h3>
           <p className="text-blue-800 mb-4">
-            If you have existing blog posts, you can import them here. Export your current content and use the "Import from WordPress" feature above.
+            PDFs are generated automatically when users submit lead forms. Use the PDF Finder tool to see all generated PDFs and download them again.
           </p>
           <div className="flex space-x-4">
-            <Link
-              to="/admin/import"
-              className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors text-sm"
-            >
-              Go to Import Wizard
+            <Link to="/admin/pdfs" className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+              Open PDF Finder
             </Link>
-            <button className="bg-white text-blue-600 px-4 py-2 rounded-lg border border-blue-300 hover:bg-blue-50 transition-colors text-sm">
-              View Migration Guide
+            <button 
+              onClick={() => window.open('https://yourdomain.com/cleaning-service-growth-blueprint', '_blank')}
+              className="bg-white text-blue-600 px-4 py-2 rounded-lg border border-blue-300 hover:bg-blue-50 transition-colors"
+            >
+              Test Blueprint Page
             </button>
           </div>
         </div>

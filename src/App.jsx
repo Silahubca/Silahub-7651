@@ -53,6 +53,9 @@ const BlogManager = lazy(() => import('./pages/admin/BlogManager'));
 const SEOManager = lazy(() => import('./pages/admin/SEOManager'));
 const LeadManager = lazy(() => import('./pages/admin/LeadManager'));
 const ImportWizard = lazy(() => import('./pages/admin/ImportWizard'));
+const PDFFinder = lazy(() => import('./pages/admin/PDFFinder'));
+const AdminLogin = lazy(() => import('./pages/admin/AdminLogin'));
+import AuthGuard from './components/admin/AuthGuard';
 
 // Contexts
 import { LeadProvider } from './contexts/LeadContext';
@@ -84,7 +87,7 @@ function App() {
       };
       preloadImage('https://quest-media-storage-bucket.s3.us-east-2.amazonaws.com/1751267972532-Silahub%20Technologies%20-%20Wordmark.png');
     };
-    
+
     preloadCriticalResources();
   }, []);
 
@@ -132,7 +135,7 @@ function App() {
                       <Route path="/services/google-maps-seo" element={<LazyWrapper><GoogleMapsSEO /></LazyWrapper>} />
                       <Route path="/services/google-local-service-ads" element={<LazyWrapper><GoogleLocalServiceAds /></LazyWrapper>} />
 
-                      {/* Legal Pages - Corrected URLs */}
+                      {/* Legal Pages */}
                       <Route path="/privacy-policy" element={<LazyWrapper><Privacy /></LazyWrapper>} />
                       <Route path="/terms-and-condition" element={<LazyWrapper><Terms /></LazyWrapper>} />
 
@@ -146,11 +149,13 @@ function App() {
                       <Route path="/home-service-growth-blueprint" element={<LazyWrapper><HomeServiceGrowthBlueprint /></LazyWrapper>} />
 
                       {/* Admin Pages */}
-                      <Route path="/admin" element={<LazyWrapper><AdminDashboard /></LazyWrapper>} />
-                      <Route path="/admin/blog" element={<LazyWrapper><BlogManager /></LazyWrapper>} />
-                      <Route path="/admin/seo" element={<LazyWrapper><SEOManager /></LazyWrapper>} />
-                      <Route path="/admin/leads" element={<LazyWrapper><LeadManager /></LazyWrapper>} />
-                      <Route path="/admin/import" element={<LazyWrapper><ImportWizard /></LazyWrapper>} />
+                      <Route path="/admin/login" element={<LazyWrapper><AdminLogin /></LazyWrapper>} />
+                      <Route path="/admin" element={<AuthGuard><LazyWrapper><AdminDashboard /></LazyWrapper></AuthGuard>} />
+                      <Route path="/admin/blog" element={<AuthGuard><LazyWrapper><BlogManager /></LazyWrapper></AuthGuard>} />
+                      <Route path="/admin/seo" element={<AuthGuard><LazyWrapper><SEOManager /></LazyWrapper></AuthGuard>} />
+                      <Route path="/admin/leads" element={<AuthGuard><LazyWrapper><LeadManager /></LazyWrapper></AuthGuard>} />
+                      <Route path="/admin/import" element={<AuthGuard><LazyWrapper><ImportWizard /></LazyWrapper></AuthGuard>} />
+                      <Route path="/admin/pdfs" element={<AuthGuard><LazyWrapper><PDFFinder /></LazyWrapper></AuthGuard>} />
                     </Routes>
                   </Suspense>
                 </main>
@@ -158,22 +163,22 @@ function App() {
                 {/* Toast Notifications */}
                 <Toaster 
                   position="top-right" 
-                  toastOptions={{
-                    duration: 4000,
-                    style: {
-                      background: '#4B154B',
-                      color: '#fff',
-                      borderRadius: '12px',
-                      padding: '16px',
-                      fontWeight: '500',
-                      boxShadow: '0 10px 25px rgba(0,0,0,0.1)',
-                    },
-                    success: {
-                      iconTheme: {
-                        primary: '#EFCECF',
-                        secondary: '#4B154B',
-                      },
-                    },
+                  toastOptions={{ 
+                    duration: 4000, 
+                    style: { 
+                      background: '#4B154B', 
+                      color: '#fff', 
+                      borderRadius: '12px', 
+                      padding: '16px', 
+                      fontWeight: '500', 
+                      boxShadow: '0 10px 25px rgba(0,0,0,0.1)', 
+                    }, 
+                    success: { 
+                      iconTheme: { 
+                        primary: '#EFCECF', 
+                        secondary: '#4B154B', 
+                      }, 
+                    }, 
                   }} 
                 />
               </div>

@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
 import * as FiIcons from 'react-icons/fi';
 import SafeIcon from '../../common/SafeIcon';
+import { generateBlueprintPDF } from '../../utils/pdfGenerator';
+import { useLead } from '../../contexts/LeadContext';
 
-const { FiThermometer, FiTrendingUp, FiDollarSign, FiCalendar, FiPhone, FiMail, FiCheck, FiArrowRight, FiStar, FiUsers, FiTarget, FiZap, FiShield, FiClock } = FiIcons;
+const { FiDownload, FiCheck, FiTrendingUp, FiDollarSign, FiThermometer, FiLoader } = FiIcons;
 
 const HVACMarketingBlueprint = () => {
+  const { addLead } = useLead();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    phone: '',
     company: '',
     monthlyRevenue: '',
     currentLeads: '',
@@ -18,617 +19,231 @@ const HVACMarketingBlueprint = () => {
     serviceArea: ''
   });
   
-  const [roasResults, setRoasResults] = useState({
-    monthlyAdSpend: 0,
-    projectedLeads: 0,
-    projectedRevenue: 0,
-    roas: 0,
-    annualGrowth: 0
-  });
-
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [roasResults, setRoasResults] = useState(null);
 
-  // Set page SEO
+  // Calculate ROI
   useEffect(() => {
-    document.title = 'HVAC Marketing Blueprint - Dominate Local Search & Generate More Leads | Silahub';
-    const metaDescription = document.querySelector('meta[name="description"]');
-    if (metaDescription) {
-      metaDescription.setAttribute('content', 'Get the HVAC Marketing Blueprint that helps heating & cooling companies generate 3x more leads through proven SEO strategies. Free ROAS calculator included.');
+    if (formData.monthlyRevenue && formData.currentLeads && formData.avgJobValue) {
+      const revenue = parseFloat(formData.monthlyRevenue);
+      const leads = parseFloat(formData.currentLeads);
+      const jobValue = parseFloat(formData.avgJobValue);
+      
+      // Assumptions for HVAC
+      const conversionRate = 0.30; // 30% closing rate
+      const marketingSpend = 2500;
+      
+      const projectedLeads = leads * 4.0; // 400% increase (high demand)
+      const projectedRevenue = projectedLeads * conversionRate * jobValue;
+      const annualGrowth = (projectedRevenue - revenue) * 12;
+      const roas = projectedRevenue / marketingSpend;
+
+      setRoasResults({
+        monthlyAdSpend: marketingSpend,
+        projectedLeads,
+        projectedRevenue,
+        roas,
+        annualGrowth
+      });
     }
-  }, []);
-
-  // ROAS Calculator logic
-  const calculateROAS = () => {
-    const monthlyRevenue = parseFloat(formData.monthlyRevenue) || 0;
-    const currentLeads = parseFloat(formData.currentLeads) || 0;
-    const avgJobValue = parseFloat(formData.avgJobValue) || 0;
-    
-    // Marketing budget calculation (10-15% of revenue is typical)
-    const monthlyAdSpend = monthlyRevenue * 0.12;
-    
-    // Projected improvements with SEO (conservative estimates)
-    const projectedLeads = currentLeads * 3.5; // 250% increase
-    const projectedRevenue = projectedLeads * avgJobValue;
-    const additionalRevenue = projectedRevenue - (currentLeads * avgJobValue);
-    const roas = monthlyAdSpend > 0 ? (additionalRevenue / monthlyAdSpend) : 0;
-    const annualGrowth = additionalRevenue * 12;
-
-    setRoasResults({
-      monthlyAdSpend,
-      projectedLeads,
-      projectedRevenue,
-      roas,
-      annualGrowth
-    });
-  };
-
-  useEffect(() => {
-    calculateROAS();
   }, [formData.monthlyRevenue, formData.currentLeads, formData.avgJobValue]);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
     try {
-      // Simulate form submission
       await new Promise(resolve => setTimeout(resolve, 2000));
       
-      // Store lead data
-      const leadData = {
-        ...formData,
-        source: 'hvac-marketing-blueprint',
-        timestamp: new Date().toISOString(),
-        roasProjections: roasResults
+      const leadData = { 
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone || '',
+        businessType: 'HVAC Services',
+        source: 'hvac-marketing-blueprint', 
+        timestamp: new Date().toISOString(), 
+        roasProjections: roasResults,
+        blueprintType: 'hvac'
       };
       
-      // Save to localStorage (in production, send to backend)
+      // Save to centralized lead management system
+      await addLead(leadData);
+      
       const existingLeads = JSON.parse(localStorage.getItem('hvac_blueprint_leads') || '[]');
       existingLeads.push(leadData);
       localStorage.setItem('hvac_blueprint_leads', JSON.stringify(existingLeads));
+
+      const PDFStorage = (await import('../../utils/pdfStorage')).default;
+      const pdfData = {
+        id: Date.now() + Math.random(),
+        type: 'hvac',
+        filename: 'hvac-marketing-blueprint.pdf',
+        generatedAt: new Date().toISOString(),
+        leadData,
+        roasResults
+      };
+      PDFStorage.saveGeneratedPDF(pdfData);
       
-      // Redirect to thank you page or show success message
-      alert('Thank you! Your HVAC Marketing Blueprint will be sent to your email within 5 minutes.');
-      
+      await generateBlueprintPDF('hvac', formData, roasResults, 'hvac-marketing-blueprint.pdf');
+
+      alert('Thank you! Your HVAC Marketing Blueprint has been downloaded to your device. Check your downloads folder.');
     } catch (error) {
+      console.error(error);
       alert('Something went wrong. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  const hvacChallenges = [
-    "Competing with 50+ HVAC companies in your area",
-    "Seasonal fluctuations affecting your revenue",
-    "High Google Ads costs with poor conversion rates", 
-    "Customers calling competitors who rank higher",
-    "Struggling to get reviews and build trust",
-    "No leads during off-peak seasons"
-  ];
-
-  const blueprintFeatures = [
-    {
-      icon: FiTarget,
-      title: "Local SEO Domination",
-      description: "Rank #1 for 'HVAC repair [your city]' and capture high-intent customers",
-      benefit: "3x more emergency service calls"
-    },
-    {
-      icon: FiDollarSign,
-      title: "Seasonal Revenue Optimization", 
-      description: "Generate consistent leads year-round, not just during peak seasons",
-      benefit: "Eliminate revenue dips"
-    },
-    {
-      icon: FiUsers,
-      title: "Customer Review Strategy",
-      description: "Build a 5-star reputation that converts browsers into buyers",
-      benefit: "85% higher conversion rates"
-    },
-    {
-      icon: FiZap,
-      title: "Emergency Call Optimization",
-      description: "Capture urgent HVAC calls when customers need help most",
-      benefit: "Higher average job values"
-    }
-  ];
-
   return (
-    <>
-      {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 text-white py-16 lg:py-24">
+    <div className="min-h-screen bg-gray-50">
+      <section className="bg-gradient-to-br from-orange-500 to-red-600 text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="space-y-8"
-            >
-              <div className="inline-flex items-center space-x-2 bg-blue-700/50 text-blue-100 px-4 py-2 rounded-full text-sm font-medium">
+            <motion.div initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }}>
+              <div className="inline-flex items-center space-x-2 bg-white/20 px-4 py-2 rounded-full text-sm font-medium mb-6">
                 <SafeIcon icon={FiThermometer} className="w-4 h-4" />
-                <span>Exclusive for HVAC Companies</span>
+                <span>For HVAC Companies</span>
               </div>
-              
-              <h1 className="text-4xl lg:text-6xl font-bold leading-tight">
-                The HVAC Marketing
-                <span className="text-blue-300"> Blueprint</span>
+              <h1 className="text-4xl lg:text-5xl font-bold mb-6">
+                HVAC Marketing Blueprint
               </h1>
-              
-              <p className="text-xl lg:text-2xl text-blue-100 leading-relaxed">
-                Stop losing customers to competitors. Get the exact SEO strategy that helped 200+ HVAC companies dominate their local market and generate 3x more leads.
+              <p className="text-xl text-orange-100 mb-8 leading-relaxed">
+                Dominate local search and capture more emergency HVAC calls. Learn how to generate consistent leads year-round, not just during peak seasons.
               </p>
-
-              <div className="grid grid-cols-2 gap-6">
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-blue-300">250%</div>
-                  <div className="text-sm text-blue-200">Lead Increase</div>
+              <div className="flex flex-wrap gap-4 text-sm font-medium">
+                <div className="flex items-center bg-white/10 px-4 py-2 rounded-lg">
+                  <SafeIcon icon={FiCheck} className="w-5 h-5 mr-2 text-orange-200" />
+                  Emergency Calls
                 </div>
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-blue-300">$180K</div>
-                  <div className="text-sm text-blue-200">Avg Annual Growth</div>
+                <div className="flex items-center bg-white/10 px-4 py-2 rounded-lg">
+                  <SafeIcon icon={FiCheck} className="w-5 h-5 mr-2 text-orange-200" />
+                  Service Agreements
                 </div>
-              </div>
-
-              <div className="flex flex-col sm:flex-row gap-4">
-                <a 
-                  href="#blueprint-form"
-                  className="bg-orange-500 text-white px-8 py-4 rounded-lg font-bold hover:bg-orange-600 transition-colors inline-flex items-center justify-center space-x-2"
-                >
-                  <span>Get Your Free Blueprint</span>
-                  <SafeIcon icon={FiArrowRight} className="w-5 h-5" />
-                </a>
-                <a 
-                  href="#roas-calculator"
-                  className="border-2 border-blue-300 text-blue-300 px-8 py-4 rounded-lg font-bold hover:bg-blue-300 hover:text-blue-900 transition-colors text-center"
-                >
-                  Calculate Your ROAS
-                </a>
               </div>
             </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.2 }}
-              className="relative"
+            
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95 }} 
+              animate={{ opacity: 1, scale: 1 }}
+              className="bg-white rounded-2xl shadow-2xl p-8 text-gray-900"
             >
-              <img 
-                src="https://images.unsplash.com/photo-1621905251918-48416bd8575a?w=600&h=400&fit=crop"
-                alt="HVAC technician working on system"
-                className="rounded-2xl shadow-2xl"
-              />
-              <div className="absolute -bottom-6 -left-6 bg-orange-500 text-white p-6 rounded-xl shadow-lg">
-                <div className="text-2xl font-bold">Free</div>
-                <div className="text-sm">Marketing Blueprint</div>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Problem Section */}
-      <section className="py-16 lg:py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
-              Are These HVAC Marketing Challenges Killing Your Growth?
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Most HVAC companies struggle with the same problems that prevent them from reaching their full potential.
-            </p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {hvacChallenges.map((challenge, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="bg-white rounded-xl p-6 shadow-lg border-l-4 border-red-500"
-              >
-                <div className="flex items-start space-x-4">
-                  <div className="bg-red-100 p-2 rounded-lg">
-                    <SafeIcon icon={FiZap} className="w-5 h-5 text-red-600" />
+              <h2 className="text-2xl font-bold mb-6 text-center">Get Your Custom Blueprint</h2>
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Your Name</label>
+                    <input
+                      type="text"
+                      name="name"
+                      required
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500"
+                      onChange={handleInputChange}
+                    />
                   </div>
-                  <p className="text-gray-700 font-medium">{challenge}</p>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Company Name</label>
+                    <input
+                      type="text"
+                      name="company"
+                      required
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500"
+                      onChange={handleInputChange}
+                    />
+                  </div>
                 </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ROAS Calculator Section */}
-      <section id="roas-calculator" className="py-16 lg:py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
-              HVAC Marketing ROI Calculator
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              See exactly how much additional revenue our HVAC SEO strategies could generate for your business.
-            </p>
-          </motion.div>
-
-          <div className="grid lg:grid-cols-2 gap-12">
-            {/* Input Form */}
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="bg-gray-50 rounded-2xl p-8"
-            >
-              <h3 className="text-2xl font-bold text-gray-900 mb-6">Your Current HVAC Business</h3>
-              
-              <div className="space-y-6">
+                
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Monthly Revenue ($)
-                  </label>
-                  <input
-                    type="number"
-                    value={formData.monthlyRevenue}
-                    onChange={(e) => setFormData({...formData, monthlyRevenue: e.target.value})}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    placeholder="50000"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Monthly Leads
-                  </label>
-                  <input
-                    type="number"
-                    value={formData.currentLeads}
-                    onChange={(e) => setFormData({...formData, currentLeads: e.target.value})}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    placeholder="25"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Average Job Value ($)
-                  </label>
-                  <input
-                    type="number"
-                    value={formData.avgJobValue}
-                    onChange={(e) => setFormData({...formData, avgJobValue: e.target.value})}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    placeholder="850"
-                  />
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Results */}
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-2xl p-8 text-white"
-            >
-              <h3 className="text-2xl font-bold mb-6">Your Projected Results with Our HVAC SEO</h3>
-              
-              <div className="space-y-6">
-                <div className="bg-white/10 rounded-lg p-4">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-blue-100">Monthly Leads</span>
-                    <SafeIcon icon={FiUsers} className="w-5 h-5 text-blue-200" />
-                  </div>
-                  <div className="text-3xl font-bold">
-                    {Math.round(roasResults.projectedLeads)}
-                  </div>
-                  <div className="text-sm text-blue-200">
-                    +{Math.round(roasResults.projectedLeads - parseFloat(formData.currentLeads || 0))} more leads/month
-                  </div>
-                </div>
-
-                <div className="bg-white/10 rounded-lg p-4">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-blue-100">Monthly Revenue</span>
-                    <SafeIcon icon={FiDollarSign} className="w-5 h-5 text-blue-200" />
-                  </div>
-                  <div className="text-3xl font-bold">
-                    ${Math.round(roasResults.projectedRevenue).toLocaleString()}
-                  </div>
-                  <div className="text-sm text-blue-200">
-                    +${Math.round(roasResults.projectedRevenue - parseFloat(formData.monthlyRevenue || 0)).toLocaleString()} additional
-                  </div>
-                </div>
-
-                <div className="bg-white/10 rounded-lg p-4">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-blue-100">Marketing ROAS</span>
-                    <SafeIcon icon={FiTrendingUp} className="w-5 h-5 text-blue-200" />
-                  </div>
-                  <div className="text-3xl font-bold">
-                    {roasResults.roas.toFixed(1)}x
-                  </div>
-                  <div className="text-sm text-blue-200">
-                    Return on ad spend
-                  </div>
-                </div>
-
-                <div className="bg-green-500/20 rounded-lg p-4">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-green-100">Annual Growth</span>
-                    <SafeIcon icon={FiCalendar} className="w-5 h-5 text-green-200" />
-                  </div>
-                  <div className="text-3xl font-bold text-green-200">
-                    ${Math.round(roasResults.annualGrowth).toLocaleString()}
-                  </div>
-                  <div className="text-sm text-green-200">
-                    Additional yearly revenue
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Blueprint Features */}
-      <section className="py-16 lg:py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
-              What's Inside the HVAC Marketing Blueprint
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              A complete step-by-step guide to dominating your local HVAC market through proven SEO strategies.
-            </p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-2 gap-8">
-            {blueprintFeatures.map((feature, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow"
-              >
-                <div className="flex items-start space-x-4">
-                  <div className="bg-blue-100 p-3 rounded-lg">
-                    <SafeIcon icon={feature.icon} className="w-6 h-6 text-blue-600" />
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="text-xl font-bold text-gray-900 mb-2">
-                      {feature.title}
-                    </h3>
-                    <p className="text-gray-600 mb-4">
-                      {feature.description}
-                    </p>
-                    <div className="bg-green-50 text-green-800 px-3 py-1 rounded-full text-sm font-medium inline-block">
-                      Result: {feature.benefit}
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Lead Form */}
-      <section id="blueprint-form" className="py-16 lg:py-20 bg-gradient-to-br from-blue-600 to-indigo-700">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6">
-              Get Your Free HVAC Marketing Blueprint
-            </h2>
-            <p className="text-xl text-blue-100 max-w-2xl mx-auto">
-              Enter your details below and we'll send you the complete blueprint plus a custom strategy session for your HVAC business.
-            </p>
-          </motion.div>
-
-          <div className="bg-white rounded-2xl shadow-2xl p-8 lg:p-12">
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Full Name *
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={formData.name}
-                    onChange={(e) => setFormData({...formData, name: e.target.value})}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    placeholder="John Smith"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Company Name *
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={formData.company}
-                    onChange={(e) => setFormData({...formData, company: e.target.value})}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    placeholder="ABC Heating & Cooling"
-                  />
-                </div>
-              </div>
-
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Email Address *
-                  </label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
                   <input
                     type="email"
+                    name="email"
                     required
-                    value={formData.email}
-                    onChange={(e) => setFormData({...formData, email: e.target.value})}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    placeholder="john@abchvac.com"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500"
+                    onChange={handleInputChange}
                   />
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Monthly Revenue ($)</label>
+                    <input
+                      type="number"
+                      name="monthlyRevenue"
+                      required
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500"
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Current Leads/Mo</label>
+                    <input
+                      type="number"
+                      name="currentLeads"
+                      required
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500"
+                      onChange={handleInputChange}
+                    />
+                  </div>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Phone Number *
-                  </label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Average Job Value ($)</label>
                   <input
-                    type="tel"
+                    type="number"
+                    name="avgJobValue"
                     required
-                    value={formData.phone}
-                    onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    placeholder="(555) 123-4567"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500"
+                    onChange={handleInputChange}
                   />
                 </div>
-              </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Service Area (City/Region)
-                </label>
-                <input
-                  type="text"
-                  value={formData.serviceArea}
-                  onChange={(e) => setFormData({...formData, serviceArea: e.target.value})}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  placeholder="Calgary, AB"
-                />
-              </div>
-
-              <div className="bg-blue-50 rounded-lg p-6">
-                <h4 className="font-semibold text-gray-900 mb-4">What You'll Receive:</h4>
-                <div className="grid md:grid-cols-2 gap-3">
-                  <div className="flex items-center space-x-2">
-                    <SafeIcon icon={FiCheck} className="w-5 h-5 text-green-600" />
-                    <span className="text-sm text-gray-700">Complete HVAC SEO Blueprint (PDF)</span>
+                {roasResults && (
+                  <div className="bg-orange-50 border border-orange-200 rounded-lg p-4 mt-4">
+                    <p className="text-sm font-semibold text-orange-900 mb-2">Projected Growth:</p>
+                    <div className="grid grid-cols-2 gap-2 text-sm">
+                      <div>
+                        <span className="text-gray-600">New Leads:</span>
+                        <span className="block font-bold text-gray-900">{Math.round(roasResults.projectedLeads)}/mo</span>
+                      </div>
+                      <div>
+                        <span className="text-gray-600">Added Revenue:</span>
+                        <span className="block font-bold text-green-600">+${Math.round(roasResults.annualGrowth/12).toLocaleString()}/mo</span>
+                      </div>
+                    </div>
                   </div>
-                  <div className="flex items-center space-x-2">
-                    <SafeIcon icon={FiCheck} className="w-5 h-5 text-green-600" />
-                    <span className="text-sm text-gray-700">Custom competitor analysis</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <SafeIcon icon={FiCheck} className="w-5 h-5 text-green-600" />
-                    <span className="text-sm text-gray-700">Free 30-minute strategy call</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <SafeIcon icon={FiCheck} className="w-5 h-5 text-green-600" />
-                    <span className="text-sm text-gray-700">Local keyword opportunities</span>
-                  </div>
-                </div>
-              </div>
-
-              <motion.button
-                type="submit"
-                disabled={isSubmitting}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="w-full bg-orange-500 text-white py-4 px-8 rounded-lg font-bold text-lg hover:bg-orange-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center justify-center space-x-2"
-              >
-                {isSubmitting ? (
-                  <>
-                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-                    <span>Sending Blueprint...</span>
-                  </>
-                ) : (
-                  <>
-                    <span>Get My Free HVAC Marketing Blueprint</span>
-                    <SafeIcon icon={FiArrowRight} className="w-5 h-5" />
-                  </>
                 )}
-              </motion.button>
 
-              <p className="text-xs text-gray-500 text-center">
-                No spam. We respect your privacy. The blueprint will be sent to your email within 5 minutes.
-              </p>
-            </form>
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full bg-orange-600 text-white py-3 rounded-lg font-bold hover:bg-orange-700 transition-colors flex items-center justify-center space-x-2 disabled:opacity-50"
+                >
+                  {isSubmitting ? (
+                    <>
+                      <SafeIcon icon={FiLoader} className="w-5 h-5 animate-spin" />
+                      <span>Generating...</span>
+                    </>
+                  ) : (
+                    <>
+                      <SafeIcon icon={FiDownload} className="w-5 h-5" />
+                      <span>Download Blueprint</span>
+                    </>
+                  )}
+                </button>
+              </form>
+            </motion.div>
           </div>
         </div>
       </section>
-
-      {/* Social Proof */}
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              Trusted by 200+ HVAC Companies
-            </h2>
-          </div>
-          
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                company: "Arctic Comfort HVAC",
-                result: "300% lead increase in 4 months",
-                quote: "The blueprint helped us rank #1 for every major HVAC keyword in our city.",
-                owner: "Mike Johnson"
-              },
-              {
-                company: "Premier Heating & Air", 
-                result: "$180K additional revenue",
-                quote: "We went from seasonal struggles to year-round growth. Game changer!",
-                owner: "Sarah Davis"
-              },
-              {
-                company: "Elite Climate Control",
-                result: "Booked 3 months in advance",
-                quote: "Our phone hasn't stopped ringing since implementing these strategies.",
-                owner: "Tom Wilson"
-              }
-            ].map((testimonial, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="bg-gray-50 rounded-xl p-6"
-              >
-                <div className="flex items-center mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <SafeIcon key={i} icon={FiStar} className="w-5 h-5 text-yellow-400 fill-current" />
-                  ))}
-                </div>
-                <blockquote className="text-gray-700 mb-4 italic">
-                  "{testimonial.quote}"
-                </blockquote>
-                <div className="border-t pt-4">
-                  <div className="font-semibold text-gray-900">{testimonial.company}</div>
-                  <div className="text-sm text-gray-600">{testimonial.owner}, Owner</div>
-                  <div className="text-sm font-medium text-blue-600 mt-1">{testimonial.result}</div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-    </>
+    </div>
   );
 };
 

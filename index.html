@@ -3,23 +3,100 @@
 <head>
   <meta charset="UTF-8" />
   <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
-  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
   <title>Silahub Technologies - Digital Marketing Agency Calgary</title>
-  <meta name="description" content="Calgary's premier digital marketing agency specializing in SEO,Google Ads,Facebook Ads,and website design for home service businesses and contractors." />
+  <meta name="description" content="Calgary's premier digital marketing agency specializing in SEO, Google Ads, Facebook Ads, and website design for home service businesses and contractors." />
+  <meta name="keywords" content="digital marketing Calgary, SEO Calgary, Google Ads Calgary, website design Calgary, home service marketing" />
+  <meta name="author" content="Silahub Technologies" />
+  <meta name="robots" content="index, follow" />
+  <meta name="language" content="en-US" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://silahub.com/" />
+  <meta property="og:title" content="Silahub Technologies - Digital Marketing Agency Calgary" />
+  <meta property="og:description" content="Calgary's premier digital marketing agency specializing in SEO, Google Ads, Facebook Ads, and website design for home service businesses and contractors." />
+  <meta property="og:image" content="https://silahub.com/og-image.jpg" />
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://silahub.com/" />
+  <meta property="twitter:title" content="Silahub Technologies - Digital Marketing Agency Calgary" />
+  <meta property="twitter:description" content="Calgary's premier digital marketing agency specializing in SEO, Google Ads, Facebook Ads, and website design for home service businesses and contractors." />
+  <meta property="twitter:image" content="https://silahub.com/twitter-image.jpg" />
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://silahub.com/" />
 
   <!-- Preconnect for performance -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
-  <!-- Debugging Script -->
+  <!-- Theme and manifest -->
+  <meta name="theme-color" content="#4B154B" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Silahub" />
+
+  <!-- Favicons -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+
+  <!-- Performance and security -->
+  <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+  <link rel="dns-prefetch" href="//fonts.gstatic.com" />
+
+  <!-- Critical CSS inlined for above-the-fold content -->
+  <style>
+    /* Critical styles for loading */
+    body {
+      margin: 0;
+      font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+    }
+    .loading-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .loading-spinner {
+      width: 50px;
+      height: 50px;
+      border: 3px solid #f3f3f3;
+      border-top: 3px solid #4B154B;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .loading-text {
+      margin-top: 20px;
+      color: #4B154B;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <div id="root">
+    <div class="loading-container">
+      <div>
+        <div class="loading-spinner"></div>
+        <div class="loading-text">Loading Silahub Technologies...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Debug Script -->
   <script>
-    console.log('HTML file loaded');
-    console.log('Domain:', window.location.hostname);
-    console.log('Protocol:', window.location.protocol);
-    console.log('Full URL:', window.location.href);
-
-    // Enhanced error handling
+    // Enhanced error handling and performance monitoring
     window.addEventListener('error', function(e) {
       console.error('Global Error:', e);
       console.error('Error details:', {
@@ -31,93 +108,29 @@
       });
     });
 
-    // Check for React loading
-    let checkCount = 0;
-    const checkInterval = setInterval(function() {
-      checkCount++;
-      const root = document.getElementById('root');
-      if (root && root.innerHTML.trim() && !root.innerHTML.includes('Loading Silahub')) {
-        console.log('React app loaded successfully!');
-        clearInterval(checkInterval);
-      } else if (checkCount > 10) {
-        console.error('React app failed to load after 5 seconds');
-        console.error('Root element content:', root ? root.innerHTML : 'Root element not found');
-        clearInterval(checkInterval);
-
-        // Show detailed error message
-        if (root) {
-          root.innerHTML = `
-            <div style="padding: 40px; max-width: 800px; margin: 0 auto; font-family: Arial, sans-serif; background: #f8f9fa; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-              <h1 style="color: #e74c3c; margin-bottom: 20px;">🚨 Website Loading Issue</h1>
-              <p style="font-size: 16px; line-height: 1.6; margin-bottom: 20px;"><strong>The website is having trouble loading.</strong> This could be due to:</p>
-              <ul style="text-align: left; margin: 20px 0; padding-left: 20px;">
-                <li>❌ JavaScript files not loading properly (MIME type issues)</li>
-                <li>❌ Server configuration problems (.htaccess not working)</li>
-                <li>❌ File permission issues (644 for files, 755 for folders)</li>
-                <li>❌ Missing or corrupted .htaccess file</li>
-                <li>❌ Browser cache issues</li>
-              </ul>
-
-              <div style="background: #fff5cc; border: 1px solid #ffcc00; padding: 15px; margin: 20px 0; border-radius: 5px;">
-                <h3 style="color: #d4a017; margin: 0 0 10px 0;">🔧 For the website owner:</h3>
-                <ol style="text-align: left; margin: 0; padding-left: 20px;">
-                  <li><strong>Check browser console</strong> (press F12 → Console tab)</li>
-                  <li><strong>Verify file upload</strong> - Ensure all files from dist/ are uploaded</li>
-                  <li><strong>Check file permissions</strong>:
-                    <ul style="margin: 10px 0;">
-                      <li>Files: 644</li>
-                      <li>Folders: 755</li>
-                      <li>.htaccess: 644</li>
-                    </ul>
-                  </li>
-                  <li><strong>Verify .htaccess existence</strong> (enable "Show Hidden Files")</li>
-                  <li><strong>Clear browser cache</strong> (Ctrl+F5 or Cmd+Shift+R)</li>
-                </ol>
-              </div>
-
-              <div style="background: #fff; border: 1px solid #ddd; padding: 15px; margin: 20px 0; border-radius: 5px;">
-                <h4 style="margin: 0 0 10px 0; color: #333;">📞 Contact Support:</h4>
-                <p style="margin: 5px 0;">
-                  <a href="mailto:hello@silahub.com" style="color: #007bff; text-decoration: none;"><strong>📧 Email: hello@silahub.com</strong></a>
-                </p>
-                <p style="margin: 5px 0;">
-                  <a href="tel:8252888332" style="color: #007bff; text-decoration: none;"><strong>📞 Phone: 825-288-8332</strong></a>
-                </p>
-              </div>
-
-              <p style="font-size: 14px; color: #666; margin-top: 20px;">
-                <strong>Quick Debug Steps:</strong><br>
-                1. Press F12 → Network tab → Refresh page<br>
-                2. Look for failed JavaScript files (red entries)<br>
-                3. Check if .js files show "Content-Type: text/javascript"<br>
-                4. If not, contact hosting provider about MIME type configuration
-              </p>
-            </div>
-          `;
-        }
+    // Performance monitoring
+    window.addEventListener('load', function() {
+      if ('performance' in window && 'getEntriesByType' in performance) {
+        const navigation = performance.getEntriesByType('navigation')[0];
+        const loadTime = navigation.loadEventEnd - navigation.loadEventStart;
+        console.log('Page load time:', loadTime + 'ms');
       }
-    }, 500);
+    });
+
+    // Service Worker registration for PWA features
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/sw.js')
+          .then(function(registration) {
+            console.log('SW registered: ', registration);
+          })
+          .catch(function(registrationError) {
+            console.log('SW registration failed: ', registrationError);
+          });
+      });
+    }
   </script>
-</head>
-<body>
-  <div id="root">
-    <div style="display: flex; justify-content: center; align-items: center; height: 100vh; font-family: Arial, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
-      <div style="text-align: center; max-width: 500px; padding: 40px; background: rgba(255,255,255,0.95); border-radius: 15px; box-shadow: 0 8px 32px rgba(0,0,0,0.1);">
-        <div style="margin-bottom: 30px;">
-          <div style="width: 60px; height: 60px; border: 4px solid #e3e3e3; border-top: 4px solid #667eea; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto;"></div>
-        </div>
-        <h1 style="color: #333; margin-bottom: 15px; font-size: 24px;">Loading Silahub Technologies...</h1>
-        <p style="color: #666; margin-bottom: 20px;">Please wait while the application loads.</p>
-        <div style="font-size: 12px; color: #999;">If this message persists, check the troubleshooting section above.</div>
-      </div>
-    </div>
-    <style>
-      @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-      }
-    </style>
-  </div>
+
   <script type="module" src="./src/main.jsx"></script>
 </body>
 </html>

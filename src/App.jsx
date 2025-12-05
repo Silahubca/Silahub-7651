@@ -1,48 +1,54 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 
-// Components
+// Error Boundary
+import ErrorBoundary from './components/common/ErrorBoundary';
+import LazyWrapper from './components/common/LazyWrapper';
+
+// Eagerly load Header and Footer for better UX
 import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
 import ScrollToTop from './components/common/ScrollToTop';
 
-// Pages
-import Home from './pages/Home';
-import Services from './pages/Services';
-import Pricing from './pages/Pricing';
-import CaseStudies from './pages/CaseStudies';
-import Portfolio from './pages/Portfolio';
-import About from './pages/About';
-import Contact from './pages/Contact';
-import Blog from './pages/Blog';
-import BlogPost from './pages/BlogPost';
-import AdminDashboard from './pages/admin/AdminDashboard';
-import BlogManager from './pages/admin/BlogManager';
-import SEOManager from './pages/admin/SEOManager';
-import LeadManager from './pages/admin/LeadManager';
-import ImportWizard from './pages/admin/ImportWizard';
+// Lazy load pages for better performance
+const Home = lazy(() => import('./pages/Home'));
+const Services = lazy(() => import('./pages/Services'));
+const Pricing = lazy(() => import('./pages/Pricing'));
+const CaseStudies = lazy(() => import('./pages/CaseStudies'));
+const Portfolio = lazy(() => import('./pages/Portfolio'));
+const About = lazy(() => import('./pages/About'));
+const Contact = lazy(() => import('./pages/Contact'));
+const Blog = lazy(() => import('./pages/Blog'));
+const BlogPost = lazy(() => import('./pages/BlogPost'));
 
-// Service Pages
-import SEOCalgary from './pages/services/SEOCalgary';
-import GoogleAdsCalgary from './pages/services/GoogleAdsCalgary';
-import ContentMarketingCalgary from './pages/services/ContentMarketingCalgary';
-import FacebookAdsCalgary from './pages/services/FacebookAdsCalgary';
-import SocialMediaManagementCalgary from './pages/services/SocialMediaManagementCalgary';
-import WebDesignCalgary from './pages/services/WebDesignCalgary';
-import ReputationManagementCalgary from './pages/services/ReputationManagementCalgary';
-import BrandingService from './pages/services/BrandingService';
-import GoogleMapsSEO from './pages/services/GoogleMapsSEO';
-import GoogleLocalServiceAds from './pages/services/GoogleLocalServiceAds';
+// Lazy load admin pages
+const AdminDashboard = lazy(() => import('./pages/admin/AdminDashboard'));
+const BlogManager = lazy(() => import('./pages/admin/BlogManager'));
+const SEOManager = lazy(() => import('./pages/admin/SEOManager'));
+const LeadManager = lazy(() => import('./pages/admin/LeadManager'));
+const ImportWizard = lazy(() => import('./pages/admin/ImportWizard'));
 
-// Landing Pages
-import HVACMarketingBlueprint from './pages/landing/HVACMarketingBlueprint';
-import PlumbingMarketingBlueprint from './pages/landing/PlumbingMarketingBlueprint';
-import ElectricalMarketingBlueprint from './pages/landing/ElectricalMarketingBlueprint';
-import CleaningServiceGrowthBlueprint from './pages/landing/CleaningServiceGrowthBlueprint';
-import LandscapingGrowthBlueprint from './pages/landing/LandscapingGrowthBlueprint';
-import RoofingGrowthBlueprint from './pages/landing/RoofingGrowthBlueprint';
-import HomeServiceGrowthBlueprint from './pages/landing/HomeServiceGrowthBlueprint';
+// Lazy load service pages
+const SEOCalgary = lazy(() => import('./pages/services/SEOCalgary'));
+const GoogleAdsCalgary = lazy(() => import('./pages/services/GoogleAdsCalgary'));
+const ContentMarketingCalgary = lazy(() => import('./pages/services/ContentMarketingCalgary'));
+const FacebookAdsCalgary = lazy(() => import('./pages/services/FacebookAdsCalgary'));
+const SocialMediaManagementCalgary = lazy(() => import('./pages/services/SocialMediaManagementCalgary'));
+const WebDesignCalgary = lazy(() => import('./pages/services/WebDesignCalgary'));
+const ReputationManagementCalgary = lazy(() => import('./pages/services/ReputationManagementCalgary'));
+const BrandingService = lazy(() => import('./pages/services/BrandingService'));
+const GoogleMapsSEO = lazy(() => import('./pages/services/GoogleMapsSEO'));
+const GoogleLocalServiceAds = lazy(() => import('./pages/services/GoogleLocalServiceAds'));
+
+// Lazy load landing pages
+const HVACMarketingBlueprint = lazy(() => import('./pages/landing/HVACMarketingBlueprint'));
+const PlumbingMarketingBlueprint = lazy(() => import('./pages/landing/PlumbingMarketingBlueprint'));
+const ElectricalMarketingBlueprint = lazy(() => import('./pages/landing/ElectricalMarketingBlueprint'));
+const CleaningServiceGrowthBlueprint = lazy(() => import('./pages/landing/CleaningServiceGrowthBlueprint'));
+const LandscapingGrowthBlueprint = lazy(() => import('./pages/landing/LandscapingGrowthBlueprint'));
+const RoofingGrowthBlueprint = lazy(() => import('./pages/landing/RoofingGrowthBlueprint'));
+const HomeServiceGrowthBlueprint = lazy(() => import('./pages/landing/HomeServiceGrowthBlueprint'));
 
 // Contexts
 import { LeadProvider } from './contexts/LeadContext';
@@ -53,88 +59,122 @@ function App() {
   useEffect(() => {
     // Initialize any necessary app-level functionality
     console.log('Silahub Technologies App loaded successfully');
-    
+
     // Set initial theme/design preferences
     document.documentElement.style.setProperty('--primary-color', '#4B154B');
     document.documentElement.style.setProperty('--secondary-color', '#EFCECF');
+
+    // Performance optimization: Preload critical resources
+    const preloadCriticalResources = () => {
+      // Preload critical fonts
+      const fontLink = document.createElement('link');
+      fontLink.rel = 'preload';
+      fontLink.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap';
+      fontLink.as = 'style';
+      document.head.appendChild(fontLink);
+
+      // Preload critical images
+      const preloadImage = (src) => {
+        const img = new Image();
+        img.src = src;
+      };
+      preloadImage('https://quest-media-storage-bucket.s3.us-east-2.amazonaws.com/1751267972532-Silahub%20Technologies%20-%20Wordmark.png');
+    };
+
+    preloadCriticalResources();
   }, []);
 
+  const LoadingFallback = () => (
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="text-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto mb-4"></div>
+        <p className="text-gray-600">Loading...</p>
+      </div>
+    </div>
+  );
+
   return (
-    <SEOProvider>
-      <BlogProvider>
-        <LeadProvider>
-          <Router>
-            <div className="min-h-screen bg-white">
-              <ScrollToTop />
-              <Header />
-              <main className="relative">
-                <Routes>
-                  {/* Main Pages */}
-                  <Route path="/" element={<Home />} />
-                  <Route path="/services" element={<Services />} />
-                  <Route path="/pricing" element={<Pricing />} />
-                  <Route path="/case-studies" element={<CaseStudies />} />
-                  <Route path="/portfolio" element={<Portfolio />} />
-                  <Route path="/about-us" element={<About />} />
-                  <Route path="/contact-us" element={<Contact />} />
-                  <Route path="/blog" element={<Blog />} />
-                  <Route path="/blog/:slug" element={<BlogPost />} />
+    <ErrorBoundary>
+      <SEOProvider>
+        <BlogProvider>
+          <LeadProvider>
+            <Router>
+              <div className="min-h-screen bg-white">
+                <ScrollToTop />
+                <Header />
+                <main className="relative">
+                  <Suspense fallback={<LoadingFallback />}>
+                    <Routes>
+                      {/* Main Pages */}
+                      <Route path="/" element={<LazyWrapper><Home /></LazyWrapper>} />
+                      <Route path="/services" element={<LazyWrapper><Services /></LazyWrapper>} />
+                      <Route path="/pricing" element={<LazyWrapper><Pricing /></LazyWrapper>} />
+                      <Route path="/case-studies" element={<LazyWrapper><CaseStudies /></LazyWrapper>} />
+                      <Route path="/portfolio" element={<LazyWrapper><Portfolio /></LazyWrapper>} />
+                      <Route path="/about-us" element={<LazyWrapper><About /></LazyWrapper>} />
+                      <Route path="/contact-us" element={<LazyWrapper><Contact /></LazyWrapper>} />
+                      <Route path="/blog" element={<LazyWrapper><Blog /></LazyWrapper>} />
+                      <Route path="/blog/:slug" element={<LazyWrapper><BlogPost /></LazyWrapper>} />
 
-                  {/* Service Pages */}
-                  <Route path="/services/seo-calgary" element={<SEOCalgary />} />
-                  <Route path="/services/google-ads-calgary" element={<GoogleAdsCalgary />} />
-                  <Route path="/services/content-marketing-calgary" element={<ContentMarketingCalgary />} />
-                  <Route path="/services/facebook-ads-calgary" element={<FacebookAdsCalgary />} />
-                  <Route path="/services/social-media-management-calgary" element={<SocialMediaManagementCalgary />} />
-                  <Route path="/services/web-design-calgary" element={<WebDesignCalgary />} />
-                  <Route path="/services/reputation-management-calgary" element={<ReputationManagementCalgary />} />
-                  <Route path="/services/branding-service" element={<BrandingService />} />
-                  <Route path="/services/google-maps-seo" element={<GoogleMapsSEO />} />
-                  <Route path="/services/google-local-service-ads" element={<GoogleLocalServiceAds />} />
+                      {/* Service Pages */}
+                      <Route path="/services/seo-calgary" element={<LazyWrapper><SEOCalgary /></LazyWrapper>} />
+                      <Route path="/services/google-ads-calgary" element={<LazyWrapper><GoogleAdsCalgary /></LazyWrapper>} />
+                      <Route path="/services/content-marketing-calgary" element={<LazyWrapper><ContentMarketingCalgary /></LazyWrapper>} />
+                      <Route path="/services/facebook-ads-calgary" element={<LazyWrapper><FacebookAdsCalgary /></LazyWrapper>} />
+                      <Route path="/services/social-media-management-calgary" element={<LazyWrapper><SocialMediaManagementCalgary /></LazyWrapper>} />
+                      <Route path="/services/web-design-calgary" element={<LazyWrapper><WebDesignCalgary /></LazyWrapper>} />
+                      <Route path="/services/reputation-management-calgary" element={<LazyWrapper><ReputationManagementCalgary /></LazyWrapper>} />
+                      <Route path="/services/branding-service" element={<LazyWrapper><BrandingService /></LazyWrapper>} />
+                      <Route path="/services/google-maps-seo" element={<LazyWrapper><GoogleMapsSEO /></LazyWrapper>} />
+                      <Route path="/services/google-local-service-ads" element={<LazyWrapper><GoogleLocalServiceAds /></LazyWrapper>} />
 
-                  {/* Landing Pages */}
-                  <Route path="/hvac-marketing-blueprint" element={<HVACMarketingBlueprint />} />
-                  <Route path="/plumbing-marketing-blueprint" element={<PlumbingMarketingBlueprint />} />
-                  <Route path="/electrical-marketing-blueprint" element={<ElectricalMarketingBlueprint />} />
-                  <Route path="/cleaning-service-growth-blueprint" element={<CleaningServiceGrowthBlueprint />} />
-                  <Route path="/landscaping-growth-blueprint" element={<LandscapingGrowthBlueprint />} />
-                  <Route path="/roofing-growth-blueprint" element={<RoofingGrowthBlueprint />} />
-                  <Route path="/home-service-growth-blueprint" element={<HomeServiceGrowthBlueprint />} />
+                      {/* Landing Pages */}
+                      <Route path="/hvac-marketing-blueprint" element={<LazyWrapper><HVACMarketingBlueprint /></LazyWrapper>} />
+                      <Route path="/plumbing-marketing-blueprint" element={<LazyWrapper><PlumbingMarketingBlueprint /></LazyWrapper>} />
+                      <Route path="/electrical-marketing-blueprint" element={<LazyWrapper><ElectricalMarketingBlueprint /></LazyWrapper>} />
+                      <Route path="/cleaning-service-growth-blueprint" element={<LazyWrapper><CleaningServiceGrowthBlueprint /></LazyWrapper>} />
+                      <Route path="/landscaping-growth-blueprint" element={<LazyWrapper><LandscapingGrowthBlueprint /></LazyWrapper>} />
+                      <Route path="/roofing-growth-blueprint" element={<LazyWrapper><RoofingGrowthBlueprint /></LazyWrapper>} />
+                      <Route path="/home-service-growth-blueprint" element={<LazyWrapper><HomeServiceGrowthBlueprint /></LazyWrapper>} />
 
-                  {/* Admin Pages */}
-                  <Route path="/admin" element={<AdminDashboard />} />
-                  <Route path="/admin/blog" element={<BlogManager />} />
-                  <Route path="/admin/seo" element={<SEOManager />} />
-                  <Route path="/admin/leads" element={<LeadManager />} />
-                  <Route path="/admin/import" element={<ImportWizard />} />
-                </Routes>
-              </main>
-              <Footer />
-              {/* Toast Notifications */}
-              <Toaster
-                position="top-right"
-                toastOptions={{
-                  duration: 4000,
-                  style: {
-                    background: '#4B154B',
-                    color: '#fff',
-                    borderRadius: '12px',
-                    padding: '16px',
-                    fontWeight: '500',
-                  },
-                  success: {
-                    iconTheme: {
-                      primary: '#EFCECF',
-                      secondary: '#4B154B',
+                      {/* Admin Pages */}
+                      <Route path="/admin" element={<LazyWrapper><AdminDashboard /></LazyWrapper>} />
+                      <Route path="/admin/blog" element={<LazyWrapper><BlogManager /></LazyWrapper>} />
+                      <Route path="/admin/seo" element={<LazyWrapper><SEOManager /></LazyWrapper>} />
+                      <Route path="/admin/leads" element={<LazyWrapper><LeadManager /></LazyWrapper>} />
+                      <Route path="/admin/import" element={<LazyWrapper><ImportWizard /></LazyWrapper>} />
+                    </Routes>
+                  </Suspense>
+                </main>
+                <Footer />
+
+                {/* Toast Notifications */}
+                <Toaster
+                  position="top-right"
+                  toastOptions={{
+                    duration: 4000,
+                    style: {
+                      background: '#4B154B',
+                      color: '#fff',
+                      borderRadius: '12px',
+                      padding: '16px',
+                      fontWeight: '500',
+                      boxShadow: '0 10px 25px rgba(0,0,0,0.1)',
                     },
-                  },
-                }}
-              />
-            </div>
-          </Router>
-        </LeadProvider>
-      </BlogProvider>
-    </SEOProvider>
+                    success: {
+                      iconTheme: {
+                        primary: '#EFCECF',
+                        secondary: '#4B154B',
+                      },
+                    },
+                  }}
+                />
+              </div>
+            </Router>
+          </LeadProvider>
+        </BlogProvider>
+      </SEOProvider>
+    </ErrorBoundary>
   );
 }
 

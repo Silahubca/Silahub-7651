@@ -1,7 +1,8 @@
-import React,{useEffect} from 'react';
+import React, { useEffect } from 'react';
 import HeroSection from '../components/home/HeroSection';
 import ServicesOverview from '../components/home/ServicesOverview';
 import InteractiveROICalculator from '../components/home/InteractiveROICalculator';
+import GrowthBlueprintsSection from '../components/home/GrowthBlueprintsSection';
 import StatsSection from '../components/home/StatsSection';
 import BeforeAfterShowcase from '../components/home/BeforeAfterShowcase';
 import VideoTestimonials from '../components/home/VideoTestimonials';
@@ -12,20 +13,22 @@ import CTASection from '../components/home/CTASection';
 import LeadMagnetModal from '../components/leads/LeadMagnetModal';
 import LiveChatWidget from '../components/home/LiveChatWidget';
 
-const Home=()=>{
-  // Set page title and SEO meta tags
-  useEffect(()=>{
-    document.title='Silahub Technologies - Digital Marketing Agency Calgary | SEO,Google Ads,Web Design';
-    const metaDescription=document.querySelector('meta[name="description"]');
+const Home = () => {
+  // Set page title and meta description
+  useEffect(() => {
+    document.title = 'Silahub Technologies - Digital Marketing Agency Calgary | SEO, Google Ads, Web Design';
+    const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
-      metaDescription.setAttribute('content','Calgary\'s premier digital marketing agency for home service businesses. Expert SEO,Google Ads,Facebook Ads,website design & more. Get your free consultation today!');
+      metaDescription.setAttribute('content', 'Calgary\'s premier digital marketing agency for home service businesses. Expert SEO, Google Ads, Facebook Ads, website design & more. Get your free consultation today!');
     }
-  },[]);
+  }, []);
+
   return (
     <>
       <HeroSection />
       <ServicesOverview />
       <InteractiveROICalculator />
+      <GrowthBlueprintsSection />
       <StatsSection />
       <BeforeAfterShowcase />
       <VideoTestimonials />
@@ -38,4 +41,5 @@ const Home=()=>{
     </>
   );
 };
+
 export default Home;

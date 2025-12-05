@@ -143,7 +143,7 @@ const Footer = () => {
               <div className="flex items-start space-x-3">
                 <SafeIcon icon={FiPhone} className="w-5 h-5 text-silahub-secondary mt-0.5" />
                 <div>
-                  <p className="text-white font-medium">825-288-8332</p>
+                  <p className="text-white font-medium">825 558 1832</p>
                   <p className="text-gray-400 text-sm">Call us anytime</p>
                 </div>
               </div>

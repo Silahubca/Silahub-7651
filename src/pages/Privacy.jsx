@@ -120,7 +120,7 @@ const Privacy = () => {
               <div className="bg-gray-50 rounded-lg p-6">
                 <div className="space-y-2">
                   <p><strong>Email:</strong> privacy@silahub.com</p>
-                  <p><strong>Phone:</strong> 825-288-8332</p>
+                  <p><strong>Phone:</strong> 825 558 1832</p>
                   <p><strong>Address:</strong> Calgary, Alberta, Canada</p>
                 </div>
               </div>
